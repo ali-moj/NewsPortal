@@ -50,7 +50,6 @@ public  class LoggedIn {
     public  String getEmail(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth!=null) {
-            //MyArgUtils.print(auth.getName());
             return auth.getName();
         }//get logged in username
         else return "notExist";

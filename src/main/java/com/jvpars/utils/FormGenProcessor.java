@@ -50,10 +50,6 @@ public class FormGenProcessor extends AbstractAttributeTagProcessor {
         final IStandardExpressionParser parser =StandardExpressions.getExpressionParser(configuration);
         final IStandardExpression expression = parser.parseExpression(context, entityName);
         final String parted = (String) expression.execute(context);
-
-       // MyArgUtils.print("..............................."+parted);
-
-
         Long id = Long.valueOf(parted.replaceAll("[^0-9]", "")); // returns 123
         String entity=parted.replace(id+"","");
         entity=entity.replace("/","");

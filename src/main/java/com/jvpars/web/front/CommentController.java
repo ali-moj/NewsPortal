@@ -43,14 +43,11 @@ public class CommentController {
             HttpSession session) {
 
         String sessionCaptcha =(String)session.getAttribute("CAPTCHA");
-        //MyArgUtils.print(sessionCaptcha + " == " + captcha);
         if(sessionCaptcha==null || (sessionCaptcha!=null && !sessionCaptcha.toUpperCase().equals(captcha.toUpperCase()))){
           //  MyArgUtils.print("wrong captcha");
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }else{
-           // MyArgUtils.print("It's OK");
             Content content = contentService.findOne(Long.parseLong(contentId));
-           // MyArgUtils.print(content+"");
             Comment comment = Comment.builder()
                     .commentText(commentText)
                     .createdDateL(MyArgUtils.nowEpoch())

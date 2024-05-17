@@ -102,9 +102,7 @@ public abstract class MyArgUtils {
         File theDir = new File(folderPath);
         // if the directory does not exist, create it
         if (!theDir.exists()) {
-            System.out.println("=====creating directory: " + folderPath);
             boolean result = false;
-
             try{
                 theDir.mkdirs();
                 result = true;
@@ -124,8 +122,6 @@ public abstract class MyArgUtils {
         for (Object object : bindingResult.getFieldErrors()) {
             if(object instanceof FieldError) {
                 FieldError fieldError = (FieldError) object;
-
-                System.out.println("error binding: "+fieldError.getDefaultMessage());
             }
             else {
                 ObjectError objectError = (ObjectError) object;

@@ -86,7 +86,6 @@ public class FindOS {
 		File theDir = new File(folderPath);
 // if the directory does not exist, create it
 		if (!theDir.exists()) {
-			System.out.println("=====creating directory: " + folderPath);
 			boolean result = false;
 
 			try{

@@ -42,8 +42,6 @@ public class SettingsController {
             setting=settingService.save(setting);
         }
         else setting=li.get(0);
-
-     //    MyArgUtils.print("setting " + setting.toString());
         model.addAttribute("setting", setting);
         model.addAttribute("statuses", Arrays.asList(Status.values()));
 

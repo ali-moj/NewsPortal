@@ -7,6 +7,7 @@ package com.jvpars.security;
 
 import com.jvpars.domain.SysUser;
 import com.jvpars.service.api.SysUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -29,15 +31,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
 
-        SysUser user = sysUserService.findByEmail(email); //^uc88&CRcM8?dR
+        SysUser user = sysUserService.findByEmail(email);
 
-        if(email.equals("support@jvpars.com")) //^uc88&CRcM8?dR
-            return new org.springframework.security.core.userdetails.User("support@jvpars.com", "$2a$10$p82EFBurUgkvcJGP8bRdR.Ip3kwKzLhg4Iirk3M3HWhOZmuz8S2Hy",
+        if(email.equals("admin@admin.com"))
+            return new org.springframework.security.core.userdetails.User("admin@admin.com", "change here using bcrypt online password encoders",
                     true, true, true, true, getGrantedAuthoritiesForRoleAdmin("ROLE_SUPER_ADMIN"));
 
 
         if(user==null){
-            System.out.println("CustomUserDetailsService.class User not found");
             throw new UsernameNotFoundException("Username not found");
         }
 
