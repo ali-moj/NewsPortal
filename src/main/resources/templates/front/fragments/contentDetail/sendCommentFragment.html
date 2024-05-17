@@ -1,0 +1,59 @@
+<th:block th:fragment="sendComment" xmlns:th="http://www.thymeleaf.org">
+
+    <!-- start comment form -->
+
+    <div id="respond" class="comment-respond">
+
+
+
+        <div class="col-sm-12">
+        <div id="comment-status-alert"  class="alert alert-success alert-round  text-center center-block mt-2 rtl-dir radious-15 display-none"/>
+        </div>
+
+        <div class="col-sm-12">
+
+
+        <form id="comment-form" class="comment-form routing-form" method="post" th:action="@{/comments}">
+
+            <div  class="hidden">
+                    <label  style="visibility: hidden"  for="senderName" th:text="#{name}"> </label>
+                    <input  style="visibility: hidden" name="contentId" id="contentId" type="text" required="required" th:value="${content.id}">
+            </div>
+
+            <p class="comment-form-comment">
+                <label for="commentText" th:text="#{yourComment}"> </label>
+
+                <textarea id="commentText" name="commentText" rows="5" required="required" ></textarea>
+            </p>
+
+            <div class="row  ">
+                <div class="col-sm-6 col-12">
+                    <label for="senderName">isim: *</label>
+                    <input name="senderName" id="senderName" type="text" required="required" >
+                </div>
+
+                <div class="col-sm-6 col-12">
+                    <label for="captcha">Güvenlik kodu: *</label>
+                    <input name="captcha" id="captcha" type="text" style="padding-left:110px;" required="required">
+                    <img class="inner-captcha" id="captcha_id" name="captcha" src="/captcha.jpg" >
+                    <span class="inner-captcha-refresh">
+                    <a href="javascript:"    onclick="document.getElementById('captcha_id').src = '/captcha.jpg?' + Math.random();  return false">
+                        <i class="fa fa-refresh fa-lg "  data-th-alt-title="#{changeCapcha}"></i>
+                    </a>
+                        </span>
+                </div>
+
+
+            </div>
+
+            <p class="comment-form-submit">
+                <input type="submit" class="btn btn-lg btn-color btn-button" value="gönder" id="submit-message">
+            </p>
+
+        </form>
+        </div>
+    </div>
+    <!-- end comment form -->
+
+
+</th:block>

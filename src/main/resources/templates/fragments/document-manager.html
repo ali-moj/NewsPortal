@@ -1,0 +1,238 @@
+<div data-th-fragment="document-manager" xmlns:th="http://www.thymeleaf.org">
+
+    <input type="hidden" id="selected-folder"/>
+    <input type="hidden" id="return-id"/>
+    <!--main page modal-->
+    <div class="modal fade" id="document-manager">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <button type="button" class="close btnManagerClose" id="document-manager-modal-x">&times;</button>
+
+
+                    <div class="btn-group pull-left" role="group" aria-label="">
+
+
+                        <a type="submit" class="managerUploadBtn" id="upload-file-button"
+                           data-toggle="tooltip" data-placement="top"
+                           data-original-title="آپلود">
+                            <i class="fa fa-upload fix-manager-fa"></i>
+                        </a>
+
+                        <a type="submit" class="managerUploadBtn" id="create-new-folder"
+                           data-toggle="tooltip" data-placement="top"
+                           data-original-title="Yeni Klasör">
+                            <i class="fa fa-folder-o fix-manager-fa"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-body removeModalPadding" dir="ltr">
+                    <div id="file-manager-toolbar">
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-3 folderTreeJv  fix-modal-body  ">
+
+
+                            <ul class="tree filemenagerHorizentalScroll">
+
+                                <li class="tree-li fix-extra-padding" id="li-1">
+                                    <label class="treeLabel" for="folder--1" data-folder-id="-1">Root Folder</label>
+                                    <input type="checkbox" id="folder--1"/>
+                                </li>
+                                <ul id="root-folders" class="fix-extra-padding-2"
+                                    data-th-insert="~{/fragments/dirTreeFragment :: folderFragment}"
+                                    data-th-with="foldersTree=${folders}">
+
+                                </ul>
+                            </ul>
+                        </div>
+
+                        <div class="col-sm-9 filemenagerScroll  " id="file-list-div">
+                            <!--Thumbs are In jvUpload filemanager Tumbnail section-->
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--     <div class="modal-footer" >
+                         <div class="pull-left">
+                             <button id="select-file" class="btn btn-gray">انتخاب</button>
+                         </div>
+                     </div>-->
+            </div>
+        </div>
+
+    </div>
+
+    <!--create folder modal-->
+    <div class="modal fade" id="create-folder-modal">
+        <div class="modal-dialog" style="width:500px;height: 250px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" id="create-folder-modal-x">&times;</button>
+                </div>
+                <div class="modal-body" dir="ltr">
+
+                    <table cellpadding="10" class="table table-round      tr-bordered ">
+                        <tr>
+                            <td>
+                                <label th:text="#{folderName}"></label>
+                            </td>
+                            <td>
+                                <input class="form-control" id="new-folder-name" type="text"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" id="create-folder-submit" class="btn btn-primary"
+                                        th:text="#{createFolder}"></button>
+
+                            </td>
+                            <td>
+                                <button type="button" id="create-folder-close" class="btn btn-danger"
+                                        th:text="#{cancel}"></button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--uploader modal-->
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" style="width:500px;height: 250px ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" id="uploadModal-x"><span aria-hidden="true">×</span><span
+                            class="sr-only">Close</span></button>
+
+                </div>
+                <div class="modal-body">
+                    <form id="fileupload" action="/_secure/upload" method="POST"
+                          enctype="multipart/form-data"
+                          class="">
+                        <input type="hidden" name="folderId" id="folderId"/>
+
+                        <table class="table table-round tr-bordered table-striped   ">
+                            <tr class="jvpHeader">
+                                <td class="jvpHeader" align="center" style="width: 25% "><b
+                                        data-th-text="#{selectFile}"> </b></td>
+                                <td class="jvpHeader" align="center" style="width: 75%"><b
+                                        data-th-text="#{Percentage}"> </b></td>
+                            </tr>
+                            <tr>
+                                <td class="jvPaneluploadBody" align="center" style="width: 15% ; padding-top: 15px">
+                                    <label class="btn  select-file-btn">
+                                        ... <input type="file" name="files[]"
+                                                   multiple="multiple"
+                                                   style="display: none"/>
+
+                                    </label>
+                                </td>
+                                <td class="jvPaneluploadBody" style="width: 85%">
+
+                                    <div id="progress" class="progress " style="margin: 35px 45px 35px 45px">
+                                        <div class="progress-bar progress-bar-success"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="image-preview-modal">
+        <div class="modal-dialog" style="width:500px;height: 250px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" dir="ltr">
+                    <img width="100%" src="" id="image-preview-tag"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="file-manager-error-modal">
+        <div class="modal-dialog modal-confirm " style="width:500px;height: 250px ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+
+                </div>
+                <div class="modal-body text-center clearfix text-center  ">
+                    <i class="fa fa-2x fa-warning text-inline  modal-orange-text"> </i>
+                        <h4 class="text-inline  modal-orange-text" th:text="#{error}"></h4>
+
+
+                    <div class="text-center">
+                        <h3 dir="ltr" class="fontFa errorContentُSmall modal-message-text"  >
+
+                        </h3>
+                        <br/>
+                    </div>
+                    <!-- Reset Button-->
+
+                    <span class="red-btnRound fix-error-modal-icon" data-dismiss="modal" >
+                        <span class="" th:text="#{tryAgain}"></span>
+                        <i class="fa fa-times red-circle "></i>
+                    </span>
+
+
+                    <!--   <button class="btn btn-success" data-dismiss="modal">Try Again</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-file-confirm">
+        <div class="modal-dialog" style="width:500px;height: 250px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close delete-file-confirm-close">&times;</button>
+                </div>
+                <div class="modal-body" dir="ltr">
+                    <p th:href="#{AreYouSure}" style="size: 25px"/>
+                    <div class="row">
+                        <button class="btn btn-danger" th:text="#{confirm}"/>
+                        <button class="btn brn-info delete-file-confirm-close" th:text="#{cancel}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="audio-media-player">
+
+        <div class="modal-dialog" style="width:500px;height: 250px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" id="audio-media-player-x">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <audio controls="controls" autoplay="autoplay" loop="loop">
+                        <source id="audio-media-src" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

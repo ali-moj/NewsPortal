@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+    </style>
+</head>
+<body class="fontFa"  >
+<section data-th-fragment="uploadModal" >
+
+<div class="modal small-modal-center fade parent" style="margin: auto" id="SimpleUploadModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header modal-upload-header    ">
+                <button type="button" class="close " data-dismiss="modal"><span aria-hidden="true"><i data-th-alt-title="#{close}" class="fa fa-times text-white font-size-30"></i> </span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title text-center text-white" data-th-text="#{uploadImages}" id="lineModalLabel"></h3>
+
+                <!--Ok 2019 Top Modal Icons-->
+                <div class="top-btn-bar">
+                    <span class="fa-stack fa-lg item-inline">
+                        <i class="fa fa-circle modal-circle-size"></i>
+                        <i class="fa fa-cloud-upload fa-stack-1x modal-upload-circle-text  "></i>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-body">
+                    <form id="fileupload" action="/docs/upload" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="id" id="fileuploadId"/>
+                        <input type="hidden" name="entity" id="fileuploadEntity"/>
+                        <input type="hidden" name="rule" id="fileuploadRule"/>
+                        <input type="hidden" name="refresh" id="refresh"/>
+
+
+                            <table class="table borderless  " align="center"  >
+                                <tr>
+                                    <td   align="center"  style="width: 15% " ><b data-th-text="#{select}"> </b></td>
+                                    <td   align="center" style="width: 85%"><b data-th-text="#{Percentage}"> </b>
+
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td  align="center">
+                                        <label class="btn upload-btn btn-file btn-sm">
+                                          ...  <input type="file" name="files[]" multiple="multiple" style="display: none" />
+                                        </label>
+                                    </td>
+                                    <td   style="width: 85%">
+                                        <div id="progress" class="progress " style="padding-top: 25px;" >
+                                            <div class=" progress-bar progress-bar-success progress-bar-striped"  ></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+
+                    </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</section>
+</body>
+</html>

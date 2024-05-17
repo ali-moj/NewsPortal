@@ -1,0 +1,53 @@
+<header th:fragment="navigation" xmlns:th="http://www.thymeleaf.org">
+    <!-- front Navbar -->
+
+    <div class="nav__holder nav--sticky nav-height  ">
+        <div class="container relative">
+            <div class="flex-parent  ">
+
+                <!-- Side Menu Button -->
+                <button class="nav-icon-toggle nav-icon-toggle-fix" id="nav-icon-toggle" aria-label="Open side menu">
+                    <span class="nav-icon-toggle__box">
+                        <span class="nav-icon-toggle__inner"></span>
+                    </span>
+                </button>
+
+                <a href="/">
+                    <img class="home-logo hidden-768-up" data-th-src="${setting?.whiteLogo}"/>
+                </a>
+
+                <!--right Nav itens-->
+
+
+                <a href="/" class="flex-child nav__wrap d-none d-lg-block   ">
+
+                    <!-- Logo -->
+
+                    <img class="home-logo" data-th-src="${setting?.whiteLogo}"/>
+
+
+                    <ul class="nav__menu  hidden-sm-down  ">
+
+
+                        <th:block th:include="~{/front/fragments/recursiveNavFragment :: recursiveNav}"
+                                  th:with="menuItems=${menus}">
+                        </th:block>
+
+                        <li class="nav__dropdown  ">
+                            <a href="#" th:text="#{mediaService}">Home</a>
+                            <ul class="nav__dropdown-menu add-dark">
+                                <li><a href="/gallery" class="sidenav__menu-url" th:text="#{imageService}"> </a></li>
+                                <li><a class="sidenav__menu-url" href="/videos" th:text="#{videoService}"> </a></li>
+
+                            </ul>
+                        </li>
+
+                    </ul> <!-- end menu -->
+                </nav> <!-- end nav-wrap -->
+                </a>
+
+            </div> <!-- end flex-parent -->
+        </div> <!-- end container -->
+
+    </div>
+</header>

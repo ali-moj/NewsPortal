@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/front/layouts/front-layout}"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="description" th:content="#{videoGallery}+ ' | ' + #{siteName}"/>
+    <title th:text="#{videoGallery}+ ' | ' + #{siteName}"></title>
+</head>
+<body class="style-videos">
+<div layout:fragment="content" class="content style-videos">
+    <br/>
+
+
+    <!-- Preloader -->
+    <div class="loader-mask">
+        <div class="loader">
+            <div></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!--Section Top Image Start-->
+        <div class="row">
+            <div class="col-sm-12 text-center title-wrap  mt-1">
+                <h3 class="gallery-section-title   storke-white-10" th:text="#{videoGallery}"/>
+                <a href="/video-archive" class=" all-gallery-url" th:text="#{archive}"></a>
+            </div>
+
+            <div class="col-lg-12 padding-2 " th:if="${spec1}">
+                <article class="entry thumb thumb--size-4">
+                    <div class="entry__img-holder thumb__img-holder-gallery" th:style="'background-image:url(' + ${#strings.replace(spec1.mainImageUrl,'download','download-resize')+ '?ratio=900'} + ');'">
+
+                       <!-- Video button-->
+                        <div class="fa-video-container">
+                            <i class="fa fa-play-circle fa-video-css"></i>
+                        </div>
+
+                        <div class="bottom-gradient"></div>
+
+                        <div class="thumb-text-holder thumb-text-holder--3 ">
+
+                            <span class="entry__meta-category entry__meta-category--label entry__meta-category--violet">
+                               <span class="date-padding" th:text="${spec1.createdDate}" />
+                               <span class="px-1" th:text="#{spacer}"/>
+                               <span th:text="${spec1?.sysUser.fullName}" />
+                            </span>
+
+                            <span class="line-ellipsis-2">
+                                <h2 class="thumb-entry-title">
+                                  <a th:href="@{|/video/${spec1.id}|}" th:utext="${spec1.title}">Long title</a>
+                                </h2>
+                             </span>
+                        </div>
+                        <a th:href="@{|/video/${spec1.id}|}" class="thumb-url"></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!--Section Top Image Stop-->
+
+        <!--Section middle Images Start-->
+        <div class="row">
+            <div class="col-lg-6 padding-2" th:if="${spec2}">
+                <article class="entry thumb thumb--size-4">
+                    <div class="entry__img-holder thumb__img-holder-gallery"
+                         th:style="'background-image:url(' + ${#strings.replace(spec2.mainImageUrl,'download','download-resize')+ '?ratio=500'} + ');'">
+                        <!-- Video button-->
+                        <div class="fa-video-container">
+                            <i class="fa fa-play-circle fa-video-css"></i>
+                        </div>
+                        <div class="bottom-gradient"></div>
+                        <div class="thumb-text-holder thumb-text-holder--3">
+                              <span class="entry__meta-category entry__meta-category--label entry__meta-category--violet">
+                               <span class="date-padding" th:text="${spec2.createdDate}" />
+                               <span class="px-1" th:text="#{spacer}"/>
+                               <span th:text="${spec2?.sysUser.fullName}" />
+                            </span>
+                            <span class="line-ellipsis-2">
+                            <h2 class="thumb-entry-title">
+                              <a th:href="@{|/video/${spec2.id}|}" th:utext="${spec2.title}">Long Des</a>
+                            </h2>
+                          </span>
+
+
+                        </div>
+                        <a th:href="@{|/video/${spec2.id}|}" class="thumb-url"></a>
+                    </div>
+                </article>
+
+
+            </div>
+            <div class="col-lg-6 padding-2" th:if="${spec3}">
+                <article class="entry thumb thumb--size-4">
+                    <div class="entry__img-holder thumb__img-holder-gallery"
+                         th:style="'background-image:url(' + ${#strings.replace(spec3.mainImageUrl,'download','download-resize')+ '?ratio=500'} + ');'">
+                        <!-- Video button-->
+                        <div class="fa-video-container">
+                            <i class="fa fa-play-circle fa-video-css"></i>
+                        </div>
+                        <div class="bottom-gradient"></div>
+                        <div class="thumb-text-holder thumb-text-holder--3">
+                                <span class="entry__meta-category entry__meta-category--label entry__meta-category--violet">
+                               <span class="date-padding" th:text="${spec3.createdDate}" />
+                               <span class="px-1" th:text="#{spacer}"/>
+                               <span th:text="${spec3?.sysUser.fullName}" />
+                            </span>
+                            <span class="line-ellipsis-2">
+                                <h2 class="thumb-entry-title ">
+                                  <a th:href="@{|/video/${spec3.id}|}" th:utext="${spec3.title}">Long Des</a>
+                                </h2>
+                            </span>
+
+                        </div>
+                        <a th:href="@{|/video/${spec3.id}|}" class="thumb-url"></a>
+                    </div>
+                </article>
+
+
+            </div>
+        </div>
+        <!--Section middle Images Stop-->
+
+        <!--Section middle Images Start-->
+        <div class="row">
+            <div class="col-lg-3 padding-2" th:if="${spec4}">
+                <article class="entry thumb thumb--size-1">
+                    <div class="entry__img-holder thumb__img-holder-gallery"
+                         th:style="'background-image:url('+${#strings.replace(spec4.mainImageUrl,'download','download-resize')+ '?ratio=300'} + ');'">
+                        <!-- Video button-->
+                        <div class="fa-video-container">
+                            <i class="fa fa-play-circle fa-video-css"></i>
+                        </div>
+                        <div class="bottom-gradient"></div>
+                        <div class="thumb-text-holder thumb-text-holder--3">
+                                <span class="entry__meta-category entry__meta-category--label entry__meta-category--violet">
+                               <span class="date-padding" th:text="${spec4.createdDate}" />
+                               <span class="px-1" th:text="#{spacer}"/>
+                               <span th:text="${spec4?.sysUser.fullName}" />
+                            </span>
+                            <h2 class="thumb-mini-entry-title">
+                                <a th:href="@{|/video/${spec4.id}|}" th:utext="${spec4.title}">Long Des</a>
+                            </h2>
+                        </div>
+                        <a th:href="@{|/video/${spec4.id}|}" class="thumb-url"></a>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-3 padding-2" th:if="${spec5}">
+                <article class="entry thumb thumb--size-1">
+                    <div class="entry__img-holder thumb__img-holder-gallery"
+                         th:style="'background-image:url(' + ${#strings.replace(spec5.mainImageUrl,'download','download-resize')+ '?ratio=300'} + ');'">
+                        <!-- Video button-->
+                        <div class="fa-video-container">
+                            <i class="fa fa-play-circle fa-video-css"></i>
+                        </div>
+                        <div class="bottom-gradient"></div>
+                        <div class="thumb-text-holder thumb-text-holder--3">
+                             <span class="entry__meta-category entry__meta-category--label entry__meta-category--violet">
+                               <span class="date-padding" th:text="${spec5.createdDate}" />
+                               <span class="px-1" th:text="#{spacer}"/>
+                               <span th:text="${spec5?.sysUser.fullName}" />
+                            </span>
+                            <h2 class="thumb-mini-entry-title">
+                                <a th:href="@{|/video/${spec5.id}|}" th:utext="${spec5.title}">Long Des</a>
+                            </h2>
+                        </div>
+                        <a th:href="@{|/video/${spec5.id}|}" class="thumb-url"></a>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-3 padding-2" th:if="${spec6}">
+                <article class="entry thumb thumb--size-1">
+                    <div class="entry__img-holder thumb__img-holder-gallery"
+                         th:style="'background-image:url(' + ${#strings.replace(spec6.mainImageUrl,'download','download-resize')+ '?ratio=300'} + ');'">
+                        <!-- Video button-->
+                        <div class="fa-video-container">
+                            <i class="fa fa-play-circle fa-video-css"></i>
+                        </div>
+                        <div class="bottom-gradient"></div>
+                        <div class="thumb-text-holder thumb-text-holder--3">
+                                  <span class="entry__meta-category entry__meta-category--label entry__meta-category--violet">
+                               <span class="date-padding" th:text="${spec6.createdDate}" />
+                               <span class="px-1" th:text="#{spacer}"/>
+                               <span th:text="${spec6?.sysUser.fullName}" />
+                            </span>
+                            <h2 class="thumb-mini-entry-title">
+                                <a th:href="@{|/video/${spec6.id}|}" th:utext="${spec6.title}">Long Des</a>
+                            </h2>
+
+                        </div>
+                        <a th:href="@{|/video/${spec6.id}|}" class="thumb-url"></a>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-3 padding-2" th:if="${spec7}">
+                <article class="entry thumb thumb--size-1">
+                    <div class="entry__img-holder thumb__img-holder-gallery"
+                         th:style="'background-image:url(' + ${#strings.replace(spec7.mainImageUrl,'download','download-resize')+ '?ratio=300'} + ');'">
+                        <!-- Video button-->
+                        <div class="fa-video-container">
+                            <i class="fa fa-play-circle fa-video-css"></i>
+                        </div>
+                        <div class="bottom-gradient"></div>
+                        <div class="thumb-text-holder thumb-text-holder--3">
+                                 <span class="entry__meta-category entry__meta-category--label entry__meta-category--violet">
+                               <span class="date-padding" th:text="${spec7.createdDate}" />
+                               <span class="px-1" th:text="#{spacer}"/>
+                               <span th:text="${spec7?.sysUser.fullName}" />
+                            </span>
+                            <h2 class="thumb-mini-entry-title">
+                                <a th:href="@{|/video/${spec7.id}|}" th:utext="${spec7.title}">Long Des</a>
+                            </h2>
+
+                        </div>
+                        <a th:href="@{|/video/${spec7.id}|}" class="thumb-url"></a>
+                    </div>
+                    `
+                </article>
+            </div>
+        </div>
+        <!--Section middle Images Stop-->
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+
+    $(".nav__holder").removeClass("nav__holder");
+    $(".nav--sticky").addClass("nav__holder-dark");
+
+    $(".newsticker__item a").removeClass("newsticker__item-url");
+    $(".newsticker__item a").addClass("newsticker__item-url-dark");
+
+    $(".trending-now").addClass("back-dark");
+    $(".trending-section").addClass("p-0");
+
+    $(".add-dark").addClass("dark-menu");
+
+
+
+</script>

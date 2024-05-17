@@ -1,0 +1,28 @@
+<div th:fragment="BreadCrumb" xmlns:th="http://www.thymeleaf.org">
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 sub-navbar-column">
+                    <ol class="breadcrumb navbar-text navbar-right no-bg">
+                        <li class="current-parent">
+                            <a class="current-parent" href="/">
+                                <i class="fa fa-fw fa-home"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{|/${parentLink}|}" th:text="#{${parentName}}">
+                                Folder
+                            </a>
+                        </li>
+
+                        <li>
+                            <span  th:text="#{${ChildName}}">
+
+                            </span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+</div>

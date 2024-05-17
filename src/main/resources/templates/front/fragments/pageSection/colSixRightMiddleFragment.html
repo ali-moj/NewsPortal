@@ -1,0 +1,44 @@
+<th:block th:fragment="colSixRightMiddle" xmlns:th="http://www.thymeleaf.org">
+    <section class="section mb-16 mr-0" th:each="box : ${boxes}">
+        <div class="title-wrap title-wrap--line2">
+            <h3 class="section-title storke-black-10" th:text="${box.title}"/>
+            <a th:href="@{|/box-archive/${box.id}|}" class="all-posts-url">arşiv</a>
+        </div>
+        <div class="row card-row">
+            <div class="col-md-6" th:each="content : ${box.contents}">
+                <article class="entry card card--1">
+                    <div class="entry__img-holder card__img-holder">
+                        <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}">
+                            <div class="thumb-container thumb-70">
+                                <img th:src="@{|${#strings.replace(content.mainImage,'download','download-resize')+ '?ratio=300'} |}"
+                                     alt="" class="entry__img lazyloaded"/>
+                            </div>
+                        </a>
+                    </div>
+                    <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}">
+                        <div class="entry__body card__body">
+                            <div class="entry__header">
+                                <h2 class="entry__title newsContent-80-limit" th:text="${content.title}"/>
+                                <ul class="entry__meta">
+                                    <li dir="ltr" class="entry__meta-author">
+
+                                        <span dir="ltr" th:text="#{author}"/>
+                                        <a th:href="@{|/user-contents/${content.userId}|}">
+                                            <span dir="ltr" th:text="${content.author}"/>
+                                        </a>
+                                        <span class="entry__meta-date" th:text="${content.publishDate}"/>
+
+
+                                        <div class="entry__excerpt font-size-16 newsContent-150-limit"
+                                             th:text="${content.summery}"/>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+</th:block>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/front/layouts/front-layout}"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="description" th:content="${video.title}"/>
+    <title th:text="${video.title} + ' | ' + #{siteName}"></title>
+    <meta property="og:title" th:content="${video.title} + ' | ' + #{siteName}" />
+    <meta property="og:url" th:content="#{domain} + ${'/gallery/' + video.id}" />
+    <meta property="og:image" th:content="#{domain} + ${'/download-resize' + #strings.replace(video.mainImageUrl,'download','download-resize') + '?ratio=1080'}" />
+    <meta property="og:type" content="video.movie" />
+    <meta property="og:video" th:content="${video.videoUrl}" />
+</head>
+<body class="style-videos">
+<div layout:fragment="content" class="content style-videos">
+    <br/>
+
+
+    <!-- Preloader -->
+    <div class="loader-mask">
+        <div class="loader">
+            <div></div>
+        </div>
+    </div>
+
+    <div class="container">
+
+
+        <!--Section middle Images Start-->
+        <div class="row" id="gallery">
+
+
+        <div class="col-sm-12 text-center title-wrap  mt-1">
+            <h3 class="gallery-section-title   storke-white-10" th:text="${video.title}"/>
+            <a href="/videos" class=" all-gallery-url" th:text="#{jvpReturn}"></a>
+        </div>
+    </div>
+
+
+<div class="row">
+    <div class="col-sm-12 center-item">
+        <video class="video-player-css" controls th:poster="${video.mainImageUrl}">
+            <source th:src="${video.videoUrl}" >
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+
+    $(".nav__holder").removeClass("nav__holder");
+    $(".nav--sticky").addClass("nav__holder-dark");
+
+    $(".newsticker__item a").removeClass("newsticker__item-url");
+    $(".newsticker__item a").addClass("newsticker__item-url-dark");
+
+    $(".trending-now").addClass("back-dark");
+    $(".trending-section").addClass("p-0");
+    $(".add-dark").addClass("dark-menu");
+
+
+    $(document).ready(function () {});
+
+
+
+
+</script>

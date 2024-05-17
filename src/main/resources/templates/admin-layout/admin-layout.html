@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
+
+    <title th:text="${setting.siteTitle}" />
+    <link rel="stylesheet" th:href="@{/public/admin/assets/front/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/public/admin/assets/skarla/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/public/admin/assets/skarla/css/app.css}"/>
+    <link rel="stylesheet" th:href="@{/public/admin/assets/skarla/css/plugins.css}"/>
+    <link rel="stylesheet" th:href="@{/public/admin/assets/skarla/css/define_font.css}"/>
+    <link rel="stylesheet" th:href="@{/public/admin/assets/skarla/css/customAdmin.css}"/>
+    <link rel="stylesheet" th:href="@{/public/admin/assets/skarla/css/material-datetime-picker.css}"/>
+
+
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" data-th-href="${setting?.favIcon}"/>
+    <link data-th-remove="all" rel="icon" data-th-href="${setting?.favIcon}"/>
+
+    <script>
+        var ASSET_PATH_BASE = '../';
+    </script>
+
+</head>
+
+<body class="ltr farsi-font " >
+<script type="text/javascript" charset="utf8"
+        th:src="@{/public/admin/assets/skarla/js/lib.min.js}"></script>
+
+<div class="main-wrap">
+    <nav class="navigation">
+        <div class="navbar-default navbar navbar-fixed-top navbar-inverse" th:include="~{fragments/navbar :: navbar}"/>
+        <aside class="navbar-default sidebar  " th:include="~{fragments/sidebar :: sidebar}"/>
+    </nav>
+
+    <div class="content" layout:fragment="content"/>
+    <footer th:include="~{fragments/footer :: footer}"/>
+    <div th:include="~{fragments/uploadModal :: uploadModal}"/>
+</div>
+
+
+<!-- JS -->
+
+<link rel="stylesheet" data-th-href="@{/public/admin/assets/skarla/css/lib.min.css}"/>
+
+<script th:src="@{/public/admin/assets/skarla/js/helpers.js}"></script>
+<script th:src="@{/public/admin/assets/skarla/js/layoutControl.js}"></script>
+<script th:src="@{/public/admin/assets/skarla/js/rightSidebar.js}"></script>
+<script th:src="@{/public/admin/assets/skarla/js/sidebar.js}"></script>
+<script th:src="@{/public/admin/assets/skarla/js/main.js}"></script>
+<script th:src="@{/public/admin/assets/skarla/js/lib.min.js}"></script>
+<script th:src="@{/public/admin/assets/skarla/js/helpers.js}"></script>
+<script th:src="@{/public/admin/assets/js/datatable.js}"></script>
+<script th:src="@{/public/admin/assets/js/select2.min.js}"></script>
+<script th:src="@{/public/admin/assets/editor/tinymce.min.js}"></script>
+<script th:src="@{/public/admin/assets/js/jvUpload.js}"></script>
+<script th:src="@{/public/admin/assets/js/jvparsBackBoneRenderMinify.js}"></script>
+<script th:src="@{/public/admin/assets/js/jquery.validate-min.js}"></script>
+<script th:src="@{/public/admin/assets/js/moment.min.js}"></script>
+<script th:src="@{/public/admin/assets/js/moment-jalaali.js}"></script>
+<script th:src="@{/public/admin/assets/js/modalDatePicker.js}"></script>
+<script th:src="@{/public/admin/assets/js/jquery.knob.min.js}"></script>
+<script th:src="@{/public/admin/assets/js/jquery.knob.min.js}"></script>
+<script th:src="@{/public/admin/assets/js/sparklines.js}"></script>
+<script th:src="@{/public/admin/assets/js/highcharts.js}"></script>
+
+
+<!-- Custom Modal Start-->
+<div id="errorModal" class="modal fade ">
+    <div class="modal-dialog modal-confirm modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="fa fa-warning fixError"> </i>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body text-center clearfix " dir="ltr">
+                <div class="row">
+                    <div class="col-sm-12 ">
+                <h4>Hata</h4>
+                <p>İşlem hatası </p>
+                <br/>
+                <small class="ltr" id="errorContent" />
+                <br/>
+                <button class="btn btn-success" data-dismiss="modal">Tekrar Dene</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var editor = tinymce.init({
+        doctype: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
+        selector: '#bodyText',
+        language: 'fa_IR',
+        menubar: true,
+        toolbar: "undo redo | removeformat | paste |  ltr rtl  | alignleft aligncenter alignright alignjustify | image imagetools | uploader |                 preview | hr bold link  forecolor textcolor |  fontsizeselect ",
+        plugins: 'autolink link image imagetools lists print preview hr media table textcolor wordcount directionality code',
+        menu: {
+            edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | code'},
+            insert: {title: 'Insert', items: 'link media | template hr'},
+            table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
+        },
+        setup: function (editor) {
+
+            function loadFileManager() {
+                $('#return-id').val('base64');
+                $('#document-manager').modal('show');
+
+                selectetEditor = editor;
+
+
+            }
+
+            editor.addButton('uploader', {
+                image:  '/public/admin/assets/img/folder.png',
+                tooltip: "Insert Current Date",
+                onclick: loadFileManager
+            });
+        }
+    });
+</script>
+
+
+<script>
+
+    function fixEpochDate() {
+        var months = [
+            'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
+        ];
+        $(".date-full").each(function () {
+            var date = parseInt($(this).text()) / 1000;
+            $(this).text(moment.unix(date).format('jYYYY/jMM/jDD'));
+        });
+
+
+        $(".date-day").each(function () {
+            var date = parseInt($(this).text()) / 1000;
+            $(this).text(moment.unix(date).format('jD'));
+        });
+
+        $(".date-month-name").each(function () {
+
+            var date = parseInt($(this).text()) / 1000;
+            var monthIndex = parseInt(moment.unix(date).format('jDD'));
+            $(this).text(months[monthIndex - 1]);
+
+        });
+
+
+        $(".date-month").each(function () {
+            var date = parseInt($(this).text()) / 1000;
+            $(this).text(moment.unix(date).format('jM'));
+        });
+
+        $(".date-year").each(function () {
+            var date = parseInt($(this).text()) / 1000;
+            $(this).text(moment.unix(date).format('jYYYY'));
+        });
+
+    }
+
+    jQuery(document).ready(function () {
+        fixEpochDate();
+    });
+
+</script>
+
+</body>
+
+
+<div data-layout-fragment="javascript">
+</div>
+
+</html>

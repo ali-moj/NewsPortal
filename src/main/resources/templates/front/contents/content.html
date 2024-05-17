@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/front/layouts/front-layout}"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta name="description" th:content="${content.pageSummery}"/>
+    <meta name="keyword" th:content="${content.meta}"/>
+    <title th:text="${content.title + ' | ' + content.box.menu.title }+ ' | ' + #{siteName}"></title>
+    <meta property="og:title" th:content="${content.title + ' | ' + content.box.menu.title }" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" th:content="#{domain} + ${'/contents/' + content.createdDateL + '/' + T(com.jvpars.utils.SeoUtils).urlFriendly(content.title) }" />
+    <meta property="og:image" th:content="#{domain} + ${content.mainImage}" />
+    <meta property="og:article:author" th:content="${content.sysUser?.fullName}" />
+    <meta property="og:article:published_time " th:content="${T(com.jvpars.utils.SeoUtils).convertToDate(content.createdDateL)}" />
+</head>
+<body>
+
+
+<div layout:fragment="content" class="content">
+    <div class="container my-4  mt-25">
+        <div class="row  ">
+
+            <div class="col-lg-4 col-md-4 hidden-sm hidden-xs mx-0 pr-0  ">
+                <aside class="  sidebar sidebar--left  ">
+                    <th:block th:include="~{/front/fragments/contentDetail/detailSidebarFragment :: detailSidebar}"
+                              th:with="contents=${lastContent}"/>
+                </aside>
+            </div>
+
+            <div class="col-lg-8 blog__content mb-50 ">
+                <th:block th:include="~{/front/fragments/contentDetail/detailContentFragment :: detailContent}"
+                          th:with="content=${content}"/>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" th:inline="javascript">
+
+
+        $("body").on('submit', 'form.routing-form', function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            var div = $('#comment-status-alert');
+            $.post($('#comment-form').attr('action'), $('#comment-form').serialize()).fail(function (xhr, status, error) {
+
+                if (xhr.status === 406) {
+                    //alert('wrong captcha');
+
+                    div.removeClass('display-none');
+                    div.addClass('alert-danger');
+                    div.removeClass('alert-success');
+                    div.text('Güvenlik bildirimi doğru değil');
+                }
+                //alert('Error : ' + xhr.status);
+            }).done(function (message) {
+                div.removeClass('display-none');
+                div.removeClass('alert-danger');
+                div.addClass('alert-success');
+
+                $(".ajaxMessage").html('<div class=" alert-success" dir="rtl">kayd edildi</div>');
+                $("body").find("#comment-form").empty();
+                div.text('Yorumunuz onaylandıktan sonra gönderildi');
+            })
+        });
+
+        var myindex = 0;
+        var bulletins = "";
+        jQuery(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8082/Bulletins-list',
+                data: {get_param: 'value'},
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    bulletins = data;
+                    $('#newstickerlist li a').text(bulletins[myindex].title.toString());
+                    $('#newstickerlist li a').attr('href', '/bulletins/' + bulletins[myindex].id.toString());
+
+                    // /bulletins/12
+
+                },
+                error: function (result) {
+                    // alert("Error");
+                }
+            });
+
+            var flag=0
+            $('#short-link-li').dblclick(function () {
+              if(flag==0) {
+                  $('#short-link-span').removeClass('hidden');
+                  flag=1;
+              }
+              else if(flag==1){
+                  $('#short-link-span').toggleClass('hidden');
+                  flag=0;
+
+              }
+            });
+        });
+
+        $("#newsticker-button--next").on('click', function () {
+            if (bulletins.length > 0) {
+                myindex++;
+                if (myindex < bulletins.length) {
+                    $('#newstickerlist li a').text(bulletins[myindex].title.toString());
+                    $('#newstickerlist li a').attr('href', '/bulletins/' + bulletins[myindex].id.toString());
+                } else {
+                    myindex = 0;
+                    $('#newstickerlist li a').text(bulletins[myindex].title.toString());
+                    $('#newstickerlist li a').attr('href', '/bulletins/' + bulletins[myindex].id.toString());
+                }
+            }
+        });
+
+
+        $("#newsticker-button--prev").on('click', function () {
+            if (bulletins.length > 0) {
+                myindex--;
+                if (myindex >= 0) {
+                    $('#newstickerlist li a').text(bulletins[myindex].title.toString());
+                    $('#newstickerlist li a').attr('href', '/bulletins/' + bulletins[myindex].id.toString());
+                } else {
+                    myindex = bulletins.length - 1;
+                    $('#newstickerlist li a').text(bulletins[myindex].title.toString());
+                    $('#newstickerlist li a').attr('href', '/bulletins/' + bulletins[myindex].id.toString());
+                }
+            }
+        })
+
+    </script>
+</div>
+
+</body>
+</html>

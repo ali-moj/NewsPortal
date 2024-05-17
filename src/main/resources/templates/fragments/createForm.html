@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div data-th-fragment="createForm">
+    <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+        <p th:each="err : ${#fields.allErrors()}" th:text="${err}">...</p>
+    </div>
+    <table cellpadding="10" class="table table-round         "   >
+
+
+
+        <tr th:each=" entry : ${wrapper.properties}"
+            th:id="${entry.key}+'Row'">
+            <td>
+                <label th:text="#{${#strings.toLowerCase(entry.key)}}">propLabel</label>
+            </td>
+
+
+            <td th:if="${entry.value=='string'}">
+                <input th:field="*{__${entry.key}__}" type="text" class="form-control" data-toggle="tooltip"
+                       style="text-align: center"/>
+            </td>
+
+            <td th:if="${entry.value=='richTextType'}">
+                <textarea th:field="*{__${entry.key}__}" class="form-control editor" style="text-align: center"/>
+            </td>
+
+            <td th:if="${entry.value=='double'}">
+                <input th:field="*{__${entry.key}__}" type="text" class="form-control" data-toggle="tooltip"
+                       style="text-align: center"/>
+            </td>
+
+            <td th:if="${entry.value=='bigDecimal'}">
+                <input th:field="*{__${entry.key}__}" type="text" class="form-control" data-toggle="tooltip"
+                       style="text-align: center"/>
+            </td>
+
+            <td th:if="${entry.value=='integer'}">
+                <input th:field="*{__${entry.key}__}" type="number" class="form-control integerMask "
+                       data-toggle="tooltip" style="text-align: center"/>
+            </td>
+
+            <td  th:if="${entry.value=='persianDateType'}"  >
+                <input th:field="*{__${entry.key}__}" type="text" class="form-control persian-date" data-toggle="tooltip"
+                       style="text-align: center"/>
+            </td>
+
+            <td th:if="${entry.value=='long'}">
+                <input th:id="${entry.key}" th:value="*{{__${entry.key}__}}"
+                       type="text" class="form-control backToShamsi dateMask " style="text-align: center"
+                       data-toggle="tooltip"/>
+            </td>
+
+            <td th:if="${entry.value=='boolean'}">
+                <input th:field="*{__${entry.key}__}" type="checkbox" class="form-control" data-toggle="tooltip"/>
+            </td>
+
+
+            <td data-th-unless="${entry.value=='long' or entry.value=='richTextType' or entry.value=='persianDateType' or entry.value=='double' or entry.value=='string'  or entry.value=='textArea' or entry.value=='bigDecimal' or entry.value=='integer' or entry.value=='boolean'}">
+                <select th:field="*{__${entry.key}__}" class="dropdown-select-ajax form-control  "
+                        style="text-align: center"
+                        data-placeholder="..." data-allow-clear="true" data-id-field="id"
+                        required="required"
+                        data-th-attrappend="data-text-fields=${entry.value}"
+                        data-th-attr="data-ajax-url='/_secure/'+${#strings.toLowerCase(entry.key)}+'s'"
+                        data-ajax-cache="true" data-ajax-delay="250" data-ajax-data-type="json">
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center " colspan="2">
+                <button class="btn btn-success"  type="submit" th:text="#{save}"/>
+                <button class="btn btn-warning" type="reset" th:text="#{label_reset}"/>
+            </td>
+        </tr>
+
+    </table>
+
+
+</div>
+</body>
+</html>

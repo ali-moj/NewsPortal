@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+    <link rel="stylesheet" data-th-href="@{/public/admin/assets/skarla/css/dashboard.css}"/>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+
+
+    <div class="container-fluid dir-ltr">
+
+        <div class="row">
+            <div class="ui-318 ">
+
+
+                <h3 class="center-block text-center">
+                    <span class="fa-2x" th:text="#{dashboard}"> </span>
+                    <i class="fa fa-gears fa-2x"></i>
+
+                </h3>
+
+
+                <div class="pl-lg-3  px-sm-2 col-lg-3 col-md-6 col-sm-6 col-xs-6 col-mob">
+                    <!-- Item Starts -->
+                    <div class="db-item item-eleven db-br-orange">
+                        <!-- Heading -->
+                        <h4 th:text="#{calender}"></h4>
+                        <!-- Big Heading -->
+                        <h3 id="calender-day"></h3>
+                        <hr/>
+                        <!-- Icon and Text -->
+
+                        <span id="calender-month"></span>
+                        <span id="calender-year"></span>
+
+
+                    </div>
+                </div>
+
+                <div class="pl-lg-3  px-sm-2 col-lg-3 col-md-6 col-sm-6 col-xs-6 col-mob">
+                    <!-- Item Starts -->
+                    <div class="db-item item-eleven db-br-lblue">
+                        <!-- Heading -->
+                        <h4 th:text="#{recentComment}"></h4>
+                        <!-- Big Heading -->
+                        <h3 id="today-comment"></h3>
+                        <hr/>
+                        <!-- Icon and Text -->
+
+                        <span id="lat-1-day-comment"></span>
+                        <span id="lat-2-day-comment"></span>
+
+
+                    </div>
+                </div>
+
+                <div class="pl-lg-3  px-sm-2 col-lg-3 col-md-6 col-sm-6 col-xs-6 col-mob">
+                    <div class="db-item db-br-yellow item-two">
+                        <h4 th:text="#{dailyCommentcount}"></h4>
+                        <div id="news-in-days" style="width: 100% ; height: 90%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pl-lg-3 pr-lg-0  px-sm-2 col-lg-3 col-md-6 col-sm-6 col-xs-6 col-mob">
+                    <div class="db-item db-br-purple item-two">
+                        <h4 th:text="#{dailyCommentCount}"></h4>
+                        <div id="comment-in-count" style="width: 100% ; height: 90%">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="pl-lg-3  px-sm-2 col-lg-3 col-md-6 col-sm-6 col-xs-6 col-mob">
+                    <!-- Item Starts -->
+                    <div class="db-item item-ten db-br-gray">
+                        <h4 th:text="#{newsInMeenus}"></h4>
+                        <!-- Chart -->
+                        <div id="menu-news-count" style="width: 100% ; height: 90%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pl-lg-3  px-sm-2 col-lg-3 col-md-6 col-sm-6 col-xs-6 col-mob">
+                    <div class="db-item db-br-rose item-two">
+                        <h4 th:text="#{hostRemain}"></h4>
+                        <div id="host-support" style="width: 100% ; height: 90%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pl-lg-3  px-sm-2 col-lg-3 col-md-6 col-sm-6 col-xs-6 col-mob">
+                    <!-- Item Starts -->
+                    <div class="db-item item-ten db-br-brown">
+                        <h4 th:text="#{supportRemain}"></h4>
+                        <!-- Chart -->
+                        <div id="site-support" style="width: 100% ; height: 90%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pl-lg-3  px-sm-2 col-lg-3 col-md-6 col-sm-6 col-xs-6 col-mob">
+                    <!-- Item Starts -->
+                    <div class="db-item item-ten db-br-dark-green">
+                        <h4 th:text="#{domainRemain}"></h4>
+                        <!-- Chart -->
+                        <div id="domain-support" style="width: 100% ; height: 90%">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="col-sm-12">
+            <div class="ui-318">
+                <div class="db-table db-br-brown item-two">
+                    <div id="news-comment-count"></div>
+                </div>
+
+                <div class="db-table db-br-brown item-two">
+                    <div id="news-visit-count"></div>
+                </div>
+
+                <!--  last login users-->
+                <div class="db-table  db-br-gray item-two">
+                    <h4 th:text="#{lastLoginUsers}"></h4>
+
+                    <table class="table tr-bordered ">
+                        <tr class="jvHeader">
+                            <th th:text="#{code}"/>
+                            <th th:text="#{date}"/>
+                            <th th:text="#{hour}"/>
+                            <th th:text="#{userName}"/>
+                        </tr>
+                        <tbody id="login-tbody">
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <!--  last login users-->
+                <div class="db-table db-br-orange item-two">
+                    <h4 th:text="#{unpublisheNews}"></h4>
+
+                    <table class="table tr-bordered ">
+                        <tr class="jvHeader">
+                            <th>#</th>
+                            <th th:text="#{userName}"/>
+                            <th th:text="#{hour}"/>
+                            <th th:text="#{date}"/>
+                            <th th:text="#{title}"/>
+                            <th th:text="#{code}"/>
+                        </tr>
+                        <tbody id="login-un-published">
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <!--  last un confirm-->
+                <div class="db-table db-br-orange item-two">
+                    <h4 th:text="#{unConfirmComment}"></h4>
+
+                    <table class="table tr-bordered ">
+                        <tr class="jvHeader">
+                            <th th:text="#{sender}"/>
+                            <th th:text="#{title}"/>
+                            <th th:text="#{date}"/>
+                            <th th:text="#{show}"/>
+                        </tr>
+                        <tbody id="un-confirmed-comments">
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="row">
+
+</div>
+</div>
+
+
+<br/>
+
+
+</div>
+<div data-layout-fragment="javascript">
+
+    <script type="text/javascript" th:inline="javascript">
+        var months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+
+        var colors = [
+            '#7B1FA2',
+            '#512DA8',
+            '#E64A19',
+            '#1976D2',
+            '#00796B',
+            '#C2185B',
+            '#303F9F',
+            '#388E3C',
+            '#FBC02D',
+            '#F57C00',
+            '#455A64',
+            '#5D4037',
+            '#D50000'];
+        $(document).ready(function () {
+            getLastUnPublished();
+            getLastLogins();
+            getMenuContentList();
+            ContentInLast7Day();
+            dailyVisit();
+            newsComments();
+            lastDaysComments();
+            newsInDays();
+            getSupport();
+            unConfirmedComments();
+            $('#calender-day').text(moment().format('DD'));
+            $('#calender-year').text(moment().format('YYYY'));
+            var month = months[parseInt(moment().format('MM')) - 1];
+            $('#calender-month').text(month);
+        });
+
+
+        function newsInDays() {
+            //news-in-days
+
+            var url = '/_secure/dashboard/news-in-days';
+            var title = /*[[#{support}]]*/
+                $.getJSON(url, function (items) {
+                    var cat = [];
+                    var val = [];
+                    items.forEach(function (item) {
+                        cat.push(item[1]);
+                        val.push(item[0]);
+                    });
+
+                    Highcharts.chart('news-in-days', {
+                        chart: {
+
+                            type: 'column',
+                            style: {
+                                fontFamily: 'IRANSansWeb'
+                            }
+                        },
+                        title: {
+                            text: ''
+                        },
+                        xAxis: {
+                            categories: cat,
+                            crosshair: true,
+                            enabled: false,
+                            // hidden:true,
+                            labels:
+                                {
+                                    enabled: false
+                                }
+
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: ''
+                            }
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series: [{
+                            showInLegend: false,
+                            name: title,
+                            data: val
+
+                        }]
+                    });
+                });
+        }
+
+        function lastDaysComments() {
+            var url = '/_secure/dashboard/last-days-comment';
+            $.getJSON(url, function (items) {
+                if (items.length > 0)
+                    $('#today-comment').text(items[0][0]);
+
+                if (items.length > 1) {
+                    var today = parseInt(items[0][0]);
+                    var last = parseInt(items[1][0]);
+
+                    if (last < today) {
+                        $('#lat-1-day-comment').html('<span class="green"><span>' + last + '</span> <i class="fa fa-caret-down black"></i></span>');
+                    } else {
+                        $('#lat-1-day-comment').html('<span class="red"><span>' + last + '</span> <i class="fa fa-caret-up black"></i></span>');
+                    }
+                }
+
+                if (items.length > 2) {
+                    var today = parseInt(items[0][0]);
+                    var last = parseInt(items[2][0]);
+
+                    if (last < today) {
+                        $('#lat-2-day-comment').html('<span class="green"><span>' + last + '</span> <i class="fa fa-caret-down black"></i></span>');
+                    } else {
+                        $('#lat-2-day-comment').html('<span class="red"><span>' + last + '</span> <i class="fa fa-caret-up black"></i></span>');
+                    }
+                }
+                var cat = [];
+                var val = [];
+                items.forEach(function (item) {
+                    cat.push(item[1]);
+                    val.push(item[0]);
+                });
+
+                Highcharts.chart('comment-in-count', {
+                    chart: {
+
+                        type: 'column',
+                        style: {
+                            fontFamily: 'IRANSansWeb'
+                        }
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: cat,
+                        crosshair: true,
+                        enabled: false,
+                        // hidden:true,
+                        labels:
+                            {
+                                enabled: false
+                            }
+
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: [{
+                        showInLegend: false,
+                        name: '',
+                        data: val
+
+                    }]
+                });
+
+            });
+        }
+
+        function newsComments() {
+            var url = '/_secure/dashboard/news-comments';
+            var commentTitle = /*[[#{commentChartTitle}]]*/'';
+            var commentCount = /*[[#{commentCount}]]*/'';
+            $.getJSON(url, function (items) {
+                var cat = [];
+                var val = [];
+                //console.log(items);
+                items.forEach(function (item) {
+                    cat.push(item[1]);
+                    val.push(item[0]);
+                });
+
+                Highcharts.chart('news-comment-count', {
+                    chart: {
+                        type: 'column',
+                        style: {
+                            fontFamily: 'IRANSansWeb'
+                        }
+                    },
+                    title: {
+                        text: commentTitle
+                    },
+                    xAxis: {
+                        categories: cat,
+                        crosshair: true,
+                        labels:
+                            {
+                                enabled: false
+                            }
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: commentCount
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: [{
+                        showInLegend: false,
+                        name: '',
+                        data: val
+
+                    }]
+                });
+            });
+        }
+
+        function dailyVisit() {
+            var url = '/_secure/dashboard/daily-visit';
+            $.getJSON(url, function (items) {
+                var cat = [];
+                var val = [];
+                //console.log(items);
+                items.forEach(function (item) {
+                    cat.push(item[1]);
+                    val.push(item[0]);
+                });
+
+                var dailyVisit = /*[[#{dailyVisit}]]*/'';
+                Highcharts.chart('news-visit-count', {
+                    chart: {
+                        type: 'column',
+                        style: {
+                            fontFamily: 'IRANSansWeb'
+                        }
+                    },
+                    title: {
+                        text: dailyVisit
+                    },
+                    xAxis: {
+                        categories: cat,
+                        crosshair: true,
+                        enabled: false,
+                        labels:
+                            {
+                                enabled: false
+                            }
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: [{
+                        showInLegend: false,
+                        name: '',
+                        data: val
+
+                    }]
+                });
+            });
+        }
+
+        function ContentInLast7Day() {
+            var url = '/_secure/dashboard/last-7-day-content';
+            $.getJSON(url, function (logs) {
+                var tr = '';
+                logs.forEach(function (element) {
+                    tr += element[1] + ',';
+                });
+            });
+        }
+
+        function getLastUnPublished() {
+            var url = '/_secure/dashboard/last-user-login';
+            $.getJSON(url, function (logs) {
+                logs.forEach(function (element) {
+                    var tr = '<tr>';
+                    tr += '<td>' + element.id + '</td>';
+                    tr += '<td>' + convertDate(element.logDate) + '</td>';
+                    tr += '<td>' + convertTime(element.logDate) + '</td>';
+                    tr += '<td>' + element.sysUser.fullName + '</td>';
+                    tr += '</tr>';
+                    $('#login-tbody').append(tr);
+                });
+            })
+        }
+
+        function getLastLogins() {
+            var url = '/_secure/dashboard/un-published';
+            $.getJSON(url, function (logs) {
+                logs.forEach(function (element) {
+                    var show =  /*[[#{dailyVisit}]]*/'';
+                    var tr = '<tr>';
+                    tr += '<td><a href="/_secure/contents/' + element.id + '">' + show + '</a></td>';
+                    tr += '<td>' + element.sysUser.fullName + '</td>';
+                    tr += '<td>' + convertTime(element.createdDateL) + '</td>';
+                    tr += '<td>' + convertDate(element.createdDateL) + '</td>';
+                    tr += '<td>' + element.title + '</td>';
+                    tr += '<td>' + element.id + '</td>';
+                    tr += '</tr>';
+                    $('#login-un-published').append(tr);
+                });
+            });
+        }
+
+        function getMenuContentList() {
+            var url = '/_secure/dashboard/menu-count';
+            $.getJSON(url, function (logs) {
+                var dataM = [];
+
+                logs.forEach(function (element, index) {
+                    var color = colors[0];
+                    if (index < colors.length)
+                        color = colors[index];
+                    dataM.push({name: element[2], y: parseFloat(element[0]), color: color});
+                });
+
+                Highcharts.chart('menu-news-count', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie',
+                        style: {fontFamily: 'IRANSansWeb'}
+                    },
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.y:.0f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        showInLegend: false,
+                        name: 'Brands',
+                        innerSize: '55%',
+                        colorByPoint: true,
+                        data: dataM
+                    }]
+                });
+            });
+        }
+
+        function convertDate(text) {
+            var date = parseInt(text) / 1000;
+            return moment.unix(date).format('jYYYY/jMM/jDD');
+        }
+
+        function convertTime(text) {
+            var date = parseInt(text) / 1000;
+            return moment.unix(date).format('HH:MM:SS');
+        }
+
+        function getSupport() {
+            var url = '/_secure/dashboard/support';
+            var pastDay =  /*[[#{pastDay}]]*/'';
+            var remainDay =  /*[[#{remainDay}]]*/'';
+
+            $.getJSON(url, function (support) {
+
+                var start = moment(support.startDateDomain, 'jYYYY/jMM/jDD');
+                var end = moment(support.endDateDomain, 'jYYYY/jMM/jDD');
+                var today = moment();
+                var remain = parseInt(end.diff(today, 'days'));
+                var past = parseInt(today.diff(start, 'days'));
+                var domainValue = [
+                    {name: pastDay, y: remain, color: '#00796B'},
+                    {name: remainDay, y: past, color: '#D50000'}
+                ];
+                supportDomain(domainValue);
+
+                start = moment(support.startDateSupport, 'jYYYY/jMM/jDD');
+                end = moment(support.endDateSupport, 'jYYYY/jMM/jDD');
+                today = moment();
+                remain = parseInt(end.diff(today, 'days'));
+                past = parseInt(today.diff(start, 'days'));
+                domainValue = [
+                    {name: pastDay, y: remain, color: '#00796B'},
+                    {name: remainDay, y: past, color: '#D50000'}
+                ];
+                supportSite(domainValue);
+
+                start = moment(support.startDateSupport, 'jYYYY/jMM/jDD');
+                end = moment(support.endDateSupport, 'jYYYY/jMM/jDD');
+                today = moment();
+                remain = parseInt(end.diff(today, 'days'));
+                past = parseInt(today.diff(start, 'days'));
+                domainValue = [
+                    {name: pastDay, y: remain, color: '#00796B'},
+                    {name: remainDay, y: past, color: '#D50000'}
+                ];
+                supportHost(domainValue);
+
+            });
+        }
+
+        function supportDomain(domainValue) {
+            Highcharts.chart('domain-support', {
+                chart: {
+                    backgroundColor: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    style: {fontFamily: 'IRANSansWeb'}
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y:.0f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    showInLegend: false,
+                    name: '',
+                    colorByPoint: true,
+                    innerSize: '55%',
+                    data: domainValue
+                }]
+            });
+        }
+
+        function supportSite(domainValue) {
+            Highcharts.chart('site-support', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    style: {fontFamily: 'IRANSansWeb'}
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y:.0f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    showInLegend: false,
+                    name: '',
+                    colorByPoint: true,
+                    innerSize: '55%',
+                    data: domainValue
+                }]
+            });
+        }
+
+        function supportHost(domainValue) {
+            Highcharts.chart('host-support', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    style: {fontFamily: 'IRANSansWeb'}
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y:.0f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    showInLegend: false,
+                    name: '',
+                    colorByPoint: true,
+                    innerSize: '55%',
+                    data: domainValue
+                }]
+            });
+        }
+
+        function unConfirmedComments() {
+            var url = '/_secure/dashboard/un-confirm-comments';
+            $.getJSON(url, function (items) {
+                items.forEach(function (item) {
+                    var show =  /*[[#{show}]]*/'';
+                    var tr = '<tr>';
+                    tr += '<td>' + item.senderName + '</td>';
+                    tr += '<td>' + item.content.title + '</td>';
+                    tr += '<td>' + item.createdDate + '</td>';
+                    tr += '<td><a href="/_secure/comments/' + item.id + '">' + show + '</a></td>';
+                    tr += '</tr>';
+                    $('#un-confirmed-comments').append(tr);
+                });
+
+
+            });
+        }
+
+
+    </script>
+</div>
+</body>
+</html>

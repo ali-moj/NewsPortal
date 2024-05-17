@@ -1,0 +1,83 @@
+<th:block th:fragment="detailContent" xmlns:th="http://www.thymeleaf.org">
+    <div class="content-box">
+        <article class="entry  ">
+            <!--single news content-->
+            <div class="single-post__entry-header entry__header  ">
+
+                <div class="title-wrap--line3  ">
+                    <h1 class="single-post__entry-title" th:text="${content.title}"/>
+                </div>
+                <div class="entry__meta-holder2 pull-left">
+                    <ul class="entry__meta">
+                        <li class="text-green" dir="ltr">
+
+                            <a href="#">
+                                <span class=" " dir="ltr" th:text="#{author}"/>
+                                <a th:href="@{|/user-contents/${content.sysUser.id}|}">
+                                    <span class="ml-2" dir="ltr" th:text="${content.sysUser?.fullName}"/>
+                                </a> <span class="entry__meta-date2" th:text="${content.createdDate}"/>
+                            </a>
+                        </li>
+
+                        <li class="entry__meta-views" th:alt-title="#{viewcount}">
+                            <i class="ui-eye "></i>
+                            <span class="i-text-green" th:alt-title="#{viewcounts}" th:text="${content.viewCount}"/>
+                        </li>
+                        <li class="entry__meta-comments" th:alt-title="#{commentsCount}">
+
+                            <i class="ui-chat-empty"></i>
+                            <span class="i-text-green" th:alt-title="#{commentsCounts}"
+                                  th:text="${#lists.size(comments)}"/>
+                        </li>
+                        <li id="short-link-li" class="entry__meta-views" th:alt-title="#{shortLink}">
+                            <i class="fa fa-link "></i>
+                            <span class="hidden bg-short-link" id="short-link-span"
+                                  th:text="#{domain} + ${'/contents/' + content.createdDateL}"></span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="single__img-holder  ">
+                <img th:src="@{|${#strings.replace(content.mainImage,'download','download-resize')+ '?ratio=300'} |}"
+                     alt="" class="entry__img "/>
+            </div>
+
+            <div th:utext="${content.bodyText}"/>
+
+
+            <div class="entry__tags">
+                <i class="ui-tags"></i>
+                <span class="entry__tags-label"> Etiketler :</span>
+                <th:block th:each="tag : ${tags}">
+                    <a th:href="@{/news-tags(tag=${tag})}" rel="tag" th:text="${tag}"/>
+                </th:block>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+    <div class="content-box my-4">
+        <article class="entry  ">
+            <th:block th:include="~{/front/fragments/contentDetail/relatedPostsFragment :: relatedPosts}"
+                      th:with="relatedContents=${relatedContents}"/>
+        </article>
+    </div>
+
+
+    <div class=" my-4 content-box">
+        <article class="entry ">
+            <th:block th:include="~{/front/fragments/contentDetail/commentsFragment :: comments}"/>
+        </article>
+
+        <article class="entry comment-box">
+            <th:block th:include="~{/front/fragments/contentDetail/sendCommentFragment  :: sendComment}"/>
+        </article>
+
+
+    </div>
+</th:block>

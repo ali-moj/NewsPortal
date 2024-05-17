@@ -1,0 +1,212 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+
+
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/image-galleries/' ,parentName ='imageGalleryManage' , ChildLink ='_secure/image-galleries/create-form' , ChildName = 'createImageGallery')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container  ">
+        <div class="row  text-center">
+            <div class="col-md-8 col-md-offset-2 col-sm-12">
+                <div class="panel panel-default b-a-0  shadow-box">
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white" th:text="#{imageGalleryNew}"/>
+                    </div>
+                        <div class="panel-body jv-panel-body" >
+                             <div id="partOne">
+                                <strong>ilk aşama</strong>
+                                <h3>Galerinin adını ve açıklamasını girin</h3>
+                                <form id="pOneForm">
+                                    <table class="table tr-bordered " dir="ltr">
+                                        <tr>
+                                            <td width="200"><span th:text="#{title}"/></td>
+                                            <td><input name="title" type="text" class="center-block form-control" id="title"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span th:text="#{description}"/></td>
+                                            <td><textArea name="description" class="center-block form-control"
+                                                          id="description"> </textArea></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center " colspan="2">
+                                                <button class="btn btn-success"  type="submit" th:text="#{save}" id="partOneSubmit"/>
+                                                <button class="btn btn-warning" type="reset" th:text="#{label_reset}"/>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </form>
+                            </div>
+                             <div id="partTwo" style="display: none">
+                                <strong>İkinci aşama</strong>
+                                <h3>Dekor fotoğrafını yükle</h3>
+                                <div class="modal-body">
+                                    <form id="partTwoForm" action="/_secure/image-galleries/part-two" method="POST"
+                                          enctype="multipart/form-data">
+                                        <input type="hidden" name="id" class="imageGallery "/>
+
+                                        <table class="table table-round tr-bordered table-striped" dir="ltr">
+                                            <tr class="jvpHeader">
+                                                <td class="jvpHeader" align="center" style="width: 25% "><b
+                                                        data-th-text="#{selectFile}"> </b></td>
+                                                <td class="jvpHeader" align="center" style="width: 75%"><b
+                                                        data-th-text="#{Percentage}"> </b></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="jvPaneluploadBody" align="center"
+                                                    style="width: 15% ; padding-top: 15px">
+                                                    <label class="btn  select-file-btn">
+                                                        ... <input type="file" name="files[]"
+                                                                   multiple="multiple"
+                                                                   style="display: none"/>
+
+                                                    </label>
+                                                </td>
+                                                <td class="jvPaneluploadBody" style="width: 85%">
+                                                    <div id="progress" class="progress "
+                                                         style="margin: 35px 45px 35px 45px">
+                                                        <div class="progress-bar progress-bar-success"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                             <div id="partThree" style="display: none">
+                                    <strong>Üçüncü aşama</strong>
+                                    <h3>Koleksiyon yükle</h3>
+                                        <form id="partThreeForm" action="/_secure/image-galleries/part-three" method="POST"
+                                              enctype="multipart/form-data">
+                                            <input type="hidden" name="id" class="imageGallery"/>
+                                            <table class="table table-round tr-bordered table-striped" dir="ltr">
+                                                <tr class="jvpHeader">
+                                                    <td class="jvpHeader" align="center" style="width: 25% "><b
+                                                            data-th-text="#{selectFile}"> </b></td>
+                                                    <td class="jvpHeader" align="center" style="width: 75%"><b
+                                                            data-th-text="#{Percentage}"> </b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="jvPaneluploadBody" align="center"
+                                                        style="width: 15% ; padding-top: 15px">
+                                                        <label class="btn  select-file-btn">
+                                                            ... <input type="file" name="files[]"
+                                                                       multiple="multiple"
+                                                                       style="display: none"/>
+
+                                                        </label>
+                                                    </td>
+                                                    <td class="jvPaneluploadBody" style="width: 85%">
+                                                        <div id="progressThree" class="progress"
+                                                             style="margin: 35px 45px 35px 45px">
+                                                            <div class="progress-bar progress-bar-success"></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
+                                 </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <th:block th:insert="~{fragments/datepickerFragment :: persianDatepicker}"/>
+</div>
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" th:inline="javascript">
+        var id;
+        jQuery(document).ready(function () {
+            $("#partOneSubmit").on("click", function (e) {
+                e.preventDefault();
+                $.post("/_secure/image-galleries/part-one", $('#pOneForm').serialize(), function (data) {
+                    $("#partOne").hide();
+                    $("#partTwo").show();
+                    this.id=data.id;
+                    $(".imageGallery").val(data.id);
+                });
+            });
+
+            $('#partTwoForm').fileupload({
+                change: function (e, data) {
+                    if (data.files.length > 1) {
+                        alert("لطفا یک به یک بارگزاری کنید");
+                        return false;
+                    }
+                },
+                maxFileSize: 20000000,
+                maxFileCount: 1,
+                acceptFileTypes: /(\.|\/)(jpe?g)$/i,
+                dataType: 'json',
+               add: function (e, data) {
+                    $('.selectFileTd').hide();
+                    data.submit()
+                },
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $('#progress .progress-bar').css('width', progress + '%')
+                }
+            }).on('fileuploaddone', function (e, data) {
+                $('#progress .progress-bar').css('width', '0%');
+                $('#uploadModal').modal('hide');
+                $("#partOne").hide();
+                $("#partTwo").hide();
+                $("#partThree").show();
+            }).on('fileuploadfail', function (e, data) {
+                $('#progress .progress-bar').css('width', '0%');
+                var responseText = jQuery.parseJSON(data.jqXHR.responseText);
+                alert(responseText.exception + "-" + responseText.message)
+            });
+
+//...........................................
+            $('#partThreeForm').fileupload({
+                maxFileSize: 20000000,
+                acceptFileTypes: /(\.|\/)(jpe?g)$/i,
+                dataType: 'json',
+                add: function (e, data) {
+                    $('.selectFileTd').hide();
+                    data.submit()
+                },
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $('#progressThree .progress-bar').css('width', progress + '%')
+                }
+            }).on('fileuploaddone', function (e, data) {
+                $('#progressThree .progress-bar').css('width', '0%');
+                $('#uploadModal').modal('hide');
+                $("#partOne").hide();
+                $("#partTwo").hide();
+                $("#partThree").show();
+                window.location.replace("/_secure/image-galleries/"+$(".imageGallery").val());
+            }).on('fileuploadfail', function (e, data) {
+                $('#progressThree .progress-bar').css('width', '0%');
+                var responseText = jQuery.parseJSON(data.jqXHR.responseText);
+                alert(responseText.exception + "-" + responseText.message)
+            });
+        });
+
+        //..................
+        $("#form").validate({
+            rules: {
+                title: {
+                    required: true
+                },
+                expirationDate: {
+                    required: true
+                },
+                createdDate: {
+                    required: true
+                }
+            }
+        });
+    </script>
+</div>
+
+</body>
+</html>

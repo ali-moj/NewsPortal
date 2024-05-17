@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/front/layouts/front-layout}"
+      xmlns:sd="http://io.github.jpenren/sd" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="description" th:content="${tag}+ ' | ' + #{siteName}"/>
+    <title th:text="${tag} + ' | ' + #{siteName}"></title>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <section class="featured-posts-grid">
+        <div class="container fontFa">
+            <article class="entry card post-list " th:each="item : ${items}">
+                <div class="col-sm-4 tags__img-holder"
+                     th:style="'background:url(' + ${#strings.replace(item.mainImage,'download','download-resize') +'?ratio=300'} + ');'">
+                    <a th:href="@{|/contents/${item.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(item.title)}|}"
+                       class="thumb-url"></a>
+                    <img th:src="${item.mainImage}" alt="" class="entry__img d-none">
+                </div>
+
+                <div class="col-sm-8 p-3">
+                    <div class="entry__header">
+                        <a th:href="@{|/contents/${item.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(item.title)}|}"
+                        >
+                            <h2 class="entry__title newsContent-80-limit hide-2LB-overflow" th:text="${item.title}">
+                            </h2>
+                        </a>
+
+                        <ul class="entry__meta">
+                            <li dir="ltr" class="entry__meta-author">
+                                <span href="mr-1" th:text="#{author}">
+
+                                </span>
+                                <a th:href="@{|/user-contents/${item.sysUser.id}|}">
+                                    <span th:text="${item.sysUser.fullName}" class="ml-1"></span>
+                                </a>
+
+                                <span class="entry__meta-date7" th:text="${item.createdDate}" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="entry__excerpt newsContent-150-limit justify-left  " th:utext="${item.pageSummery}"/>
+                </div>
+            </article>
+
+            <!--pagination start-->
+            <div class="center-item">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <nav class="pull-right">
+                            <ul class="pagination" sd:pagination-split="7" sd:pagination="full">
+                                <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                <li class="disabled"><a href="#" aria-label="Previous"><span
+                                        aria-hidden="true">&laquo;</span></a>
+                                </li>
+                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!--pagination finish-->
+        </div>
+    </section>
+</div>
+</body>
+</html>
+

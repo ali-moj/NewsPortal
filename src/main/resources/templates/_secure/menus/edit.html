@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='menus/' ,parentName ='menus' , ChildLink ='#' , ChildName = 'editMenu')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+
+                <div class="panel panel-default b-a-0  shadow-box">
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white" th:text="#{editMenu}"/>
+                    </div>
+                    <div class="panel-body jv-panel-body">
+
+                        <form th:object="${menu}" th:action="@{/_secure/menus/}" th:method="PUT">
+                            <input type="hidden" th:field="*{parent}"/>
+                            <input type="hidden" th:field="*{id}"/>
+                            <input type="hidden" th:field="*{version}"/>
+
+                            <input type="hidden" name="_method" value="PUT"/>
+
+
+                            <table cellpadding="10" class="table table-round tr-bordered">
+
+
+                                <tr>
+                                    <td>
+                                        <label th:text="#{title}">propLabel</label>
+                                    </td>
+                                    <td>
+                                        <input th:field="*{title}" type="text" class="form-control"
+                                               data-toggle="tooltip" style="text-align: center"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label th:text="#{arrangment}">propLabel</label>
+                                    </td>
+                                    <td>
+                                        <input th:field="*{arrangment}" type="text" class="form-control"
+                                               data-toggle="tooltip" style="text-align: center"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label th:text="#{role}"/>
+                                    </td>
+                                    <td>
+                                        <input th:field="*{acl}" type="text" class="form-control"
+                                               data-toggle="tooltip" style="text-align: center"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center " colspan="2">
+                                        <button class="btn btn-success"  type="submit" th:text="#{save}"/>
+                                        <button class="btn btn-warning" type="reset" th:text="#{label_reset}"/>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </form>
+
+                    </div>
+                </div>
+
+
+                <br/>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div data-layout-fragment="javascript">
+
+    <script th:src="@{/public/admin/assets/skarla/js/file-explore.js}"></script>
+
+    <script>
+        /*<![CDATA[*/
+
+
+        $(document).ready(function () {
+
+
+        });
+
+
+        //Initialization of treeviews
+
+
+        /*]]>*/
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+
+
+</head>
+<body>
+
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(link1='link1')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+
+                <div class="panel panel-default b-a-0  shadow-box">
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white">#{link1}</span>
+                    </div>
+                    <div class="panel-body menuTree">
+
+                        <div class="fileManagerTree">
+                            <form>
+                                <h1>C:\Users\Will\Magic</h1>
+                                <div class="tree">
+                                    <div>
+                                        <input id="n-0" type="checkbox">
+                                        <label for="n-0">Black</label>
+                                        <div class="sub">
+                                            <a href="#link">Plague Rats</span>
+                                                <a href="#link">Sengir Vampire</a>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input id="n-1" type="checkbox">
+                                        <label for="n-1">Blue</label>
+                                        <div class="sub">
+                                            <a href="#link">Mana Leak</a>
+                                            <a href="#link">Time Warp</a>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input id="n-2" type="checkbox">
+                                        <label for="n-2">Green</label>
+                                        <div class="sub">
+                                            <a href="#link">Giant Growth</a>
+                                            <a href="#link">Liege of the Tangle</a>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input id="n-3" type="checkbox">
+                                        <label for="n-3">Red</label>
+                                        <div class="sub">
+                                            <a href="#link">Mogg Fanatic</a>
+                                            <a href="#link">Worldfire</a>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input id="n-4" type="checkbox">
+                                        <label for="n-4">White</label>
+                                        <div class="sub">
+                                            <a href="#link">Healing Salve</a>
+                                            <a href="#link">Serra Angel</a>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input id="n-5" type="checkbox">
+                                        <label for="n-5">Multicolor</label>
+                                        <div class="sub">
+                                            <div>
+                                                <input id="n-5-0" type="checkbox">
+                                                <label for="n-5-0">Blue + Green</label>
+                                                <div class="sub">
+                                                    <a href="#link">Simic Aurora</a>
+                                                    <a href="#link">Wistful Selkie</a>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-5-1" type="checkbox">
+                                                <label for="n-5-1">Red + White</label>
+                                                <div class="sub">
+                                                    <a href="#link">Boros Swiftblade</a>
+                                                    <a href="#link">Lightning Helix</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="reset" value="Collapse All">
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <br/>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

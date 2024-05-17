@@ -1,0 +1,19 @@
+<header th:fragment="sidenav"  xmlns:th="http://www.thymeleaf.org">
+
+    <!-- close -->
+    <div class="sidenav__close">
+        <button class="sidenav__close-button" id="sidenav__close-button" aria-label="close sidenav">
+            <i class="ui-close sidenav__close-icon"></i>
+        </button>
+    </div>
+
+    <!-- Nav -->
+    <nav class="sidenav__menu-container">
+        <ul class="sidenav__menu" role="menubar">
+            <th:block th:include="~{/front/fragments/recursiveSidenavFragment :: recursiveSidenav}"  th:with="menuItems=${menus}">
+
+            </th:block>
+        </ul>
+    </nav>
+
+</header>

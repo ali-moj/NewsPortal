@@ -1,0 +1,37 @@
+<th:block th:fragment="colSixRightTop" xmlns:th="http://www.thymeleaf.org">
+    <div class="  blog__content mr-0" th:each="box : ${boxes}">
+        <article class="entry card featured-posts-grid__entry" th:each="content : ${box.contents}">
+            <div class="featured__img-holder card__img-holder">
+                <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}">
+                    <!--  resize ok img-->
+                    <img th:src="@{|${#strings.replace(content.mainImage,'download','download-resize')+ '?ratio=800'} |}"
+                         alt="" class="entry__img"/>
+                    <a th:href="@{|/box-archive/${box.id}|}" class="  all-posts-url-white">arşiv</a>
+                </a>
+            </div>
+
+            <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}"/>
+            <div class="entry__body card__body">
+                <h2 class="entry__title storke-black-10 newsContent-80-limit" th:text="${content.title}">
+
+                </h2>
+                <ul class="entry__meta">
+                    <li dir="ltr" class="entry__meta-author">
+
+                        <span dir="ltr" th:text="#{author}" class="mr-2"/>
+                        <a th:href="@{|/user-contents/${content.userId}|}">
+                            <span dir="ltr" th:text="${content.author}"/>
+                        </a>
+
+
+                        <span class="entry__meta-date5" th:text="${content.publishDate}"/>
+
+
+                        <div class="entry__excerpt font-size-16 newsContent-150-limit" th:text="${content.summery}"/>
+                    </li>
+                </ul>
+            </div>
+            </a>
+        </article>
+    </div>
+</th:block>

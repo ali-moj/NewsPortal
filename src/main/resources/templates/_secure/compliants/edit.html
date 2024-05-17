@@ -1,0 +1,56 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+ <head> 
+  <meta charset="UTF-8" data-th-remove="all" /> 
+ </head>
+ <body> 
+  <div class="container bg-container">
+   <section data-layout-fragment="content" data-sec-authorize="hasAuthority('Role-Admin') or hasAuthority('Role-SuperAdmin')">
+    <h3 class="page-title" data-th-text="#{label_compliant_plural}"></h3>
+    <div class="page-bar">
+     <ul class="page-breadcrumb">
+      <li>
+       <a data-th-text="#{label_home}" href="/"></a>
+       <i class="fa fa-angle-right"></i>
+      </li>
+      <li>
+       <a data-th-text="#{label_compliant_plural}" data-th-href="@{/_secure/compliant}"></a>
+       <i class="fa fa-angle-right"></i>
+      </li>
+      <li>
+       <span data-th-text="#{label_edit}"></span>
+      </li>
+     </ul>
+
+     <div class="page-toolbar">
+      <div class="btn-group pull-right">
+       <a type="button" class="btn btn-fit-height btn-warning" data-th-href="@{/_secure/compliants}" data-th-text="#{label_back}"></a>
+      </div>
+     </div>
+    </div>
+    <div class="portlet light bordered">
+     <div class="portlet-title">
+      <div class="caption">
+       <i class="fa fa-edit font-red-sunglo"></i>
+       <span class="caption-subject font-red-sunglo bold uppercase" data-th-text="#{label_edit}"></span>
+      </div>
+     </div>
+     <div class="portlet-body form">
+      <form class="form-horizontal" method="POST" data-th-object="${compliant}" data-th-action="@{/_secure/compliants}">
+          <div data-th-include="~{fragments/updateForm :: updateForm}" >updateForm</div>
+          <button type="submit" value="Accept" data-th-text="#{label_submit}" class="btn blue">Submit</button>
+          <button type="reset" class="btn btn-default" onclick="location.href='list.html'" data-th-onclick="'location.href=\'' + @{/_secure/compliants} + '\''" data-th-text="#{label_reset}">Cancel</button>
+       </form>
+     </div>
+    </div>
+   </section>
+  </div>
+
+<!--  <div data-layout-fragment="javascript">
+   <script>
+    jQuery(document).ready(function(){
+    });
+   </script>
+  </div>-->
+ </body> 
+</html>

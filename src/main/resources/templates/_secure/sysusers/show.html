@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin-layout/admin-layout.html}">
+<head>
+    <meta charset="UTF-8" data-th-remove="all"/>
+</head>
+<body>
+<section layout:fragment="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/sysusers/' ,parentName ='sysuserManage' , ChildLink ='#' , ChildName = 'sysuser')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 ">
+                <div class="panel panel-default b-a-0  shadow-box">
+                     <div class="panel-heading   bg-primary-i b-b-0 text-center text-center">
+                        <span class="text-white " th:text="#{sysuser}"/>
+                    </div>
+                    <div class="panel-body jv-panel-body  ">
+
+                        <a   th:href="@{|/_secure/sysusers/edit-form/${user.id}|}"  class="btn btn-primary active  pull-right " >
+                            Düzenle
+                        </a>
+
+
+                        <table cellpadding="10" class="table table-round tr-bordered ">
+                            <tr>
+                                <td>
+                                    <label th:text="#{email}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${user.email}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label th:text="#{role}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${user.role}"></span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label th:text="#{fullName}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${user.fullName}"></span>
+                                </td>
+                            </tr>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" data-th-inline="javascript">
+    </script>
+</div>
+</html>

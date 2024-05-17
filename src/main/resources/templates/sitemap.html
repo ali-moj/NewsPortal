@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/front/layouts/front-layout}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" th:content="#{siteMapDes}"/>
+    <meta name="keyword" th:content="#{sitemap}"/>
+    <title th:text="#{siteMapTitle}" />
+
+</head>
+
+<body class="fontFa solidGrayBack  ">
+
+<section data-layout-fragment="content">
+
+    <div class="container">
+        <div class="row">
+        <div class="col-12">
+        <table class="table borderless ">
+            <tr>
+                <td class="text-center"><span data-th-text="#{sitemap}"/>&nbsp;<span>SITE MAP</span></td>
+            </tr>
+            <tr>
+                <td >
+                        <ul dir="ltr">
+                            <li>
+                                <ul dir="ltr" >
+                                    <li th:each="page :${pages}">
+                                        <i class="fa fa-square" aria-hidden="true"></i>
+                                        <a th:href="@{|/page/${page.id}/${T(com.jvpars.utils.SeoUtils).urlFriendly(page.title)}|}">
+                                            <b th:text="${page.title}" />
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-square" aria-hidden="true"></i>
+                                        <b th:text="#{news}" /> <small style="padding-right: 5px">News</small>
+                                        <ul th:each="row :${contents}">
+                                            <li style="padding-right: 20px;" >
+                                                <i class="fa fa-caret-left sitemapPadding" aria-hidden="true"></i>
+                                                <a th:href="@{|/contents/${row.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(row.title)}|}">
+                                                    <b th:text="${row.title}"/>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                </td>
+            </tr>
+        </table>
+        </div>
+        </div>
+    </div>
+    <br/>
+</section>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<th:block  th:fragment="col3LeftOneMiddle" xmlns:th="http://www.thymeleaf.org">
+
+    <aside class="widget widget-popular-posts mr-0" th:each="box : ${boxes}">
+        <h4 class="widget-title storke-black-10" th:text="${box.title}"/>
+        <ul class="post-list-small post-list-small--1">
+            <li class="post-list-small__item" th:each="content : ${box.contents}">
+                <article class="post-list-small__entry clearfix">
+                    <div class="post-list-small__img-holder">
+                        <div class="thumb-container thumb-80">
+                            <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}">
+                           <!--     ok resize-->
+                                <img th:src="@{|${#strings.replace(content.mainImage,'download','download-resize')+ '?ratio=1080'} |}" alt="" class="lazyload"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="post-list-small__body">
+                        <h3 class="post-list-small__entry-title">
+                            <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}" th:text="${content.title}"  />
+                        </h3>
+                    </div>
+                </article>
+            </li>
+        </ul>
+    </aside>
+
+</th:block>

@@ -1,0 +1,75 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/contents/' ,parentName ='contentManage' , ChildLink ='_secure/contents/' , ChildName = 'contentShow')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default b-a-0  shadow-box">
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white" th:text="#{contentShow}"/>
+                    </div>
+
+                    <div class="panel-body jv-panel-body">
+                        <a   th:if="${content.published}" th:href="@{|/_secure/contents/publish/${content.id}|}" onclick="return  ConfirmPublish();" class="btn btn-cranberry active  pull-right" th:text="#{published}">
+                            published
+                        </a>
+
+                        <a   th:if="${!content.published}" th:href="@{|/_secure/contents/publish/${content.id}|}" onclick="return  ConfirmPublish();"  class="btn btn-default active  pull-right" th:text="#{unpublished}">
+                            unpublish
+                        </a>
+
+                        <a   th:href="@{|/_secure/contents/edit-form/${content.id}|}"  class="btn btn-primary active  pull-right" th:text="#{edit}">
+                            Edit
+                        </a>
+
+                        <a th:href="@{|/_secure/contents/delete/${content.id}|}" onclick="return  ConfirmDelete();" class="btn btn-danger active  pull-right" th:text="#{del}">
+                            sil
+                        </a>
+                        <a  th:href="@{/_secure/contents/create-form}"   class="btn btn-primary active  pull-right" th:text="#{create}">
+                            create
+                        </a>
+
+
+                        <div class="row">
+                            <div class="col-sm-12 text-center position-relative">
+                                <img class="panel-decor-image shadow" id="image-preview"
+                                     th:src="${content.mainImage}"/>
+
+                            </div>
+                        </div>
+                        <br/>
+                        <div data-th-include="~{fragments/showForm:: showForm(entityName='content')}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" th:inline="javascript">
+        jQuery(document).ready(function () {
+            $('#mainimage').attr('class', 'display-none');
+        });
+
+        function ConfirmPublish()
+        {
+            var x = confirm("Yayın durumunu değiştirmek istediğinize emin misiniz?");
+            if (x)
+                return true;
+            // window.location("/_secure/sysusers/list/")
+            else
+                return false;
+        }
+    </script>
+</div>
+
+
+</body>
+</html>

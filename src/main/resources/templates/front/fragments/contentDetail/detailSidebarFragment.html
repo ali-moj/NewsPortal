@@ -1,0 +1,42 @@
+<th:block th:fragment="detailSidebar" xmlns:th="http://www.thymeleaf.org">
+
+    <aside class="widget widget-review-posts">
+        <h4 class="widget-title storke-black-10" th:text="#{RelateNews}"/>
+
+        <article class="entry" th:each="content : ${contents}">
+            <div class="entry__img-holder">
+                <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}">
+                    <div class="thumb-container thumb-60">
+                        <img th:src="@{|${#strings.replace(content.mainImage,'download','download-resize')+ '?ratio=300'} |}" alt="" class="entry__img lazyloaded"/>
+                        <!--<span class="entry-score">هنری</span>-->
+                    </div>
+                </a>
+            </div>
+
+            <div class="entry__body">
+                <div class="entry__header">
+                    <h2 class="entry__title newsContent-80-limit">
+                        <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}" th:text="${content.title}"/>
+                    </h2>
+                    <ul class="entry__meta">
+                        <li dir="ltr" class="entry__meta-author">
+                            <a href="#"  >
+                                <span dir="ltr" th:text="#{author}" class="black"/>
+                                <a th:href="@{|/user-contents/${content.userId}|}">
+                                    <span dir="ltr" th:text="${content.author}" class="ml-1"/>
+                                </a>
+
+
+                                <span class="entry__meta-date3" th:text="${content.publishDate}"/>
+                            </a>
+
+                            <div class="entry__excerpt font-size-16 newsContent-150-limit" th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}"  th:text="${content.summery}" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+    </aside>
+
+</th:block>

@@ -1,0 +1,139 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+					 layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+<!--START CONTAINER-->
+<div layout:fragment="content" class="content">
+	<div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/compliants/' ,parentName ='compliantsManage' , ChildLink ='#' , ChildName = 'compliantsList')}"
+		 class="sub-navbar sub-navbar__header-breadcrumbs"/>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default b-a-0  shadow-box">
+					<div class="panel-heading  bg-primary-i b-b-0 text-center">
+						<span class="text-white" th:text="#{complaintslist}"/>
+						<!--<a th:href="@{/_secure/complaints/list}" th:text="#{complaints}" class="btn btn-sm btn-success pull-left" />-->
+					</div>
+					<div class="panel-body jv-panel-body">
+
+						<table id="dt" class=" table  dataTable" dir="ltr">
+							<thead>
+							<th class="hederTitle" colspan="4">
+								<!--<b style="line-height: 34px" th:text="#{complaintslist}"/>-->
+							</th>
+							</thead>
+							<thead>
+							<th><b th:text="#{email}"/>
+							<th><b th:text="#{mobile}"/>
+							<th><b th:text="#{date}"/>
+							<th><b th:text="#{note1}"/>
+							<th><b th:text="#{status}"/>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div data-layout-fragment="javascript">
+	<script type="text/javascript" data-th-inline="javascript">
+        jQuery(document).ready(function () {
+			/*<![CDATA[*/
+
+            var context = /*[[@{/}]]*/'';
+            var compliantTable = jQuery('#dt').DataTable(
+                {
+                    "bAutoWidth": false,"bDestroy": true,
+                    "initComplete": function(settings, json) {
+                        $('.agregar').hide();
+                    },
+
+
+                    'ajax':
+                        {'url': context + "/compliants"
+                        },
+                    'columns': [
+
+                        {
+                            'data': 'id',
+                            'orderable': false,
+                            'searchable': false,
+                            'render': function (data, type, full, meta) {
+                                return '<a href="/_secure/compliants/' + data + '" >' +
+                                    '<i class="fas fa linkIcon fa-external-link fa-flip-horizontal" data-th-title="#{showDetails}"></i>' +
+                                    '</a>'
+                            }
+                        },
+
+                        {'data': 'status' ,
+                            'orderable': false,
+                            'searchable': false,
+                            'render': function (data, type, full, meta) {
+                                if(data==="disable"){
+                                    return "رسیدگی نشده";
+                                }
+                                else    return "رسیدگی شد"
+                            }
+                        },
+
+                        {'data': 'createdDate' ,
+                            'orderable': false,
+                            'searchable': false,
+                            'render': function (data, type, full, meta) {
+                                return '<span>'+persianDate(parseInt( data)).format('YYYY/MM/DD')+ '</span>';
+
+                            }
+                        },
+
+                        {'data': 'mobile',
+                            'orderable': false,
+                            'searchable': false
+                        },
+
+
+
+                        {'data': 'email',
+                            'orderable': true,
+                            'searchable': true
+                        },
+                        {'data': 'note' ,
+                            'orderable': false,
+                            'searchable': false,
+                            'render': function (data, type, full, meta) {
+                                return data.toString();
+
+                            }
+                        }
+
+                        ],
+
+                    "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                        decorateRow(nRow);
+                        return nRow;
+
+                    }
+                });
+
+            function decorateRow(row) {
+                $(row).children().each(function (index, td) {
+                    if ($(td).html().indexOf("رسیدگی نشده") === 0) {
+                        $(td).closest("tr").css("background-color", "#faefe6");
+                    }
+
+                });
+            }
+
+
+        });
+		/*]]>*/
+	</script>
+</div>
+</body>
+</html>

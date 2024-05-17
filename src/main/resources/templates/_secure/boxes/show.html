@@ -1,0 +1,41 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+  <!--  BreadCrumb-->
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/boxes/' ,parentName ='boxesManage' , ChildLink ='#' , ChildName = 'boxShow')}" class="sub-navbar sub-navbar__header-breadcrumbs"/>
+
+    <!--Table Body-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <!--Table Title-->
+                <div class="panel-heading   bg-primary-i b-b-0 text-center text-center">
+                    <span class="text-white " th:text="#{boxList}"/>
+                </div>
+                <!--Content Body-->
+                <div class="panel-body jv-panel-body  ">
+                    <a th:if="${box.menu}" th:href="@{|/_secure/boxes/edit-form/${box.id}|}" class="btn btn-warning active  pull-right" th:text="#{edit}">
+                        edit
+                    </a>
+                    <a th:href="@{|/_secure/boxes/delete/${box.id}|}" onclick="return  ConfirmDelete();"  class="btn btn-danger active  pull-right" th:text="#{del}">
+                        sil
+                    </a>
+                    <a th:if="${box.menu}" th:href="@{/_secure/boxes/create-form}" class="btn btn-primary active  pull-right" th:text="#{create}">
+                        create
+                    </a>
+                    <div data-th-include="~{fragments/showForm:: showForm(entityName='box')}"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</body>
+</html>

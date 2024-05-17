@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" data-th-href="@{/public/admin/assets/skarla/css/bootstrap.css}"/>
+</head>
+<body>
+<div class="container bg-container">
+
+        <div class="row errorBackImage" dir="ltr" >
+            <div class="col-sm-12 col-xs-12 text-center center-block " style="min-height: 700px">
+                <div class="col-sm-6 col-sm-offset-3 errorpadding" th:if="${param.error}">
+                    <button class="close" data-close="alert"></button>
+                    <span data-th-text="#{EnterUsernPass}"></span>
+                </div>
+
+                <div class="col-sm-6 col-sm-offset-3 errorpadding" >
+                    <img width="80px" height="auto" style="margin-top: 50px"  class=" center-block errorlogo"  data-th-src="@{/public/admin/assets/img/unplug.png}" />
+
+
+                    <p th:text="${errMsg}"/>
+                    <p th:if="${url}">
+                        <b>Page:</b> <span th:text="${url}">Page URL</span>
+                    </p>
+
+                    <p th:if="${timestamp}" id='created'>
+                        <b>Occurred:</b> <span th:text="${timestamp}">Timestamp</span>
+                    </p>
+
+                    <p th:if="${status}">
+                        <b>Response Status:</b> <span th:text="${status}">status-code</span> <span
+                            th:if="${error}" th:text="${error}">error ...</span>
+                    </p>
+
+
+                    <div class="alert alert-danger"
+                            th:if="${ex} or ${exception} or ${message} and ${message.length() != 0}">
+                        <b th:if="${ex}" th:text="${ex}">exception ...</b> <b></b>
+                        <b th:if="${exception}" th:text="${exception}">exception ...</b>
+                        <b th:if="${message} and ${message.length() != 0}"
+                              th:text="${message}">message ...</b>
+                        <p>
+                            <small>Note: An exception detect in  application please Contactadmin If you believe this exception not correct </small>
+                        </p>
+                    </div>
+
+                    <h2 th:unless="${ex} or ${exception} or ${message} and ${message.length() != 0}" style="color: red">404</h2>
+
+                    <p dir="ltr">
+                        You are seeing this error page due to error
+                        <br/>
+                        which returns a
+                        view called "error" in response to uncaught exceptions.
+                        <br/>
+                        you are in
+                        <strong style="padding: 10px">error.html</strong>page
+                    </p>
+                </div>
+
+            </div>
+            <br/>
+
+
+
+        </div>
+
+    </div>
+<div layout:fragment="javascript">
+    <script>
+    </script>
+</div>
+</body>
+</html><link rel="stylesheet" data-th-href="@{/public/admin/assets/skarla/css/bootstrap.css}"/>

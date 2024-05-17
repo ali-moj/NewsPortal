@@ -1,0 +1,111 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+
+
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/contents/unpublished-list' ,parentName ='contentManage' , ChildLink ='_secure/contents/unpublished-list' , ChildName = 'contentList')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <!--Top Bottons Bar-->
+
+
+                <div class="panel panel-default b-a-0  shadow-box">
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white" th:text="#{contents}"/>
+                    </div>
+                    <div class="panel-body jv-panel-body">
+
+                        <a th:href="@{/_secure/contents/create-form}"   class="btn btn-primary active  pull-right">
+                            Yeni
+                        </a>
+
+                        <table id="dt" class=" table table-round dataTable" dir="ltr">
+
+                            <thead class="jvHeader">
+
+                            <th style="width: 200px"><b th:text="#{image}"/></th>
+                            <th><b th:text="#{title}"/></th>
+
+                            <th><b th:text="#{date}"/></th>
+                            <th><b th:text="#{user}"/></th>
+                            <th><b th:text="#{boxes}"/></th>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" th:inline="javascript">
+        var context = /*[[@{/}]]*/'';
+        $(document).ready(function () {
+            $.fn.dataTable.ext.errMode = 'none';
+            var dt = $('#dt').DataTable({
+                "bAutoWidth": false,
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    var id = aData.id;
+                    $(nRow).attr("data-id", id);
+                    $(nRow).css("cursor", "pointer");
+                    return nRow;
+                },
+                'ajax': {'url': context + "_secure/contents/unpublished-datatable"},
+                'columns': [
+
+                    {
+                        'data': 'mainImage',
+                        'orderable': false,
+                        'searchable': false,
+                        'render': function (data, type, full, meta) {
+                            if (data) {
+                                var link = data.replace('download', 'download-resize');
+                                link = link + "?ratio=50";
+                                return '<img class="image-zoom" src="' + link + '" />';
+                            } else return '-';
+                        }
+                    },
+                    {'data': 'title'},
+                    {'data': 'createdDate'},
+                    {
+                        'data': 'sysUser',
+                        'orderable': false,
+                        'searchable': false,
+                        'render': function (data, type, full, meta) {
+                            if (data)
+                                return '<span>' + data.fullName + '</span>'
+                        }
+                    },
+                    {
+                        'data': 'box',
+                        'orderable': false,
+                        'searchable': false,
+                        'render': function (data, type, full, meta) {
+                            if (data)
+                                return '<span>' + data.select2 + '</span>'
+                        }
+                    }
+                ]
+            });
+
+            $('#dt tbody').on('click', 'tr', function () {
+                var id = $(this).data("id");
+                window.location = '/_secure/contents/' + id;
+            });
+
+        });
+    </script>
+</div>
+
+</body>
+</html>

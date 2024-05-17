@@ -1,0 +1,23 @@
+<ul th:fragment="menu" xmlns:th="http://www.thymeleaf.org">
+
+    <li th:each="menuItem : ${menuItemsList}">
+            <span th:text="${menuItem.title}"> </span>
+            <a th:href="@{|/_secure/menus/create-form?parentId=${menuItem.id}|}">
+                <i class="fa fa-plus"></i>
+            </a>
+            <a th:href="@{|/_secure/menus/edit-form/${menuItem.id}|}">
+                <i class="fa fa-edit"></i>
+            </a>
+            <a th:href="@{|/_secure/menus/del/${menuItem.id}|}" onclick="return  ConfirmDelete();">
+                <i class="fa fa-trash-o"></i>
+            </a>
+
+
+
+        <th:block th:insert="~{/fragments/menuFragment :: menu}" th:with="menuItemsList=${menuItem.children}">
+
+        </th:block>
+
+    </li>
+
+</ul>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/front/layouts/front-layout}"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="description" th:content="${imageGallery.title}"/>
+    <title th:text="${imageGallery.title} + ' | ' + #{siteName}"></title>
+    <meta property="og:title" th:content="${imageGallery.title} + ' | ' + #{siteName}" />
+    <meta property="og:url" th:content="#{domain} + ${'/gallery/' + imageGallery.id}" />
+    <meta property="og:image" th:content="#{domain} + ${'/download-resize/' + imageGallery.docFolder.folderPath + '/decor.jpg?ratio=1080'}" />
+</head>
+<body class="style-videos" >
+<div layout:fragment="content" class="content style-videos">
+    <br/>
+
+
+    <!-- Preloader -->
+    <div class="loader-mask">
+        <div class="loader">
+            <div></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="demo-gallery" >
+       <span class=" text-center col-sm-12  " >
+        <h2 class="gallery-entry-title" th:text="${imageGallery.title}"/>
+         <div class="col-sm-12 text-center">
+            <a href="" class=" mt-2 entry__meta-category entry__meta-category--label entry__meta-category--violet"
+               th:text="${imageGallery.sysUser.fullName}"> </a>
+           </div>
+         <br/>
+      </span>
+
+            <ul id="lightgallery" class="list-unstyled row">
+                <li class="col-xl-4 col-lg-4 col-md-6  col-sm-12 col-12 p-0 m-0"
+                    th:attrappend="data-src=${'/download/' + imageGallery.docFolder.folderPath + '/decor.jpg'}">
+                    <a>
+                        <img class="  img-responsive panel-thumb-image " th:src="${'/download-resize/' + imageGallery.docFolder.folderPath + '/decor.jpg?ratio=1080'}">
+                    </a>
+                </li>
+
+                <th:block th:each="image : ${docFiles}" th:if="${!#strings.contains(image.fileName,'decor')}">
+                    <li class="col-xl-4 col-lg-4 col-md-6  col-sm-12 col-12 p-0 m-0"
+                        th:attrappend="data-src=${'/download/'+image.docFolder.folderPath +'/'+image.fileName}">
+                        <a>
+                            <img class="img-fullwidth panel-thumb-image " th:src="${'/download-resize/'+image.docFolder.folderPath +'/'+image.fileName+'?ratio=1080'}">
+                        </a>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<div layout:fragment="javascript">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#lightgallery').lightGallery();
+        });
+
+
+        $(".nav__holder").removeClass("nav__holder");
+        $(".nav--sticky").addClass("nav__holder-dark");
+
+        $(".newsticker__item a").removeClass("newsticker__item-url");
+        $(".newsticker__item a").addClass("newsticker__item-url-dark");
+
+        $(".trending-now").addClass("back-dark");
+        $(".trending-section").addClass("p-0");
+        $(".add-dark").addClass("dark-menu");
+
+
+        var myindex = 0;
+        var bulletins = "";
+        jQuery(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8082/Bulletins-list',
+                data: {get_param: 'value'},
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    bulletins = data;
+                    $('#newstickerlist li a').text(bulletins[myindex].title.toString());
+                    $('#newstickerlist li a').attr('href','/bulletins/'+bulletins[myindex].id.toString());
+
+                },
+                error: function (result) {
+                    // alert("Error");
+                }
+            });
+        });
+
+        $("#newsticker-button--next").on('click', function () {
+            if (bulletins.length > 0) {
+                myindex++;
+                if (myindex < bulletins.length) {
+                    $('#newstickerlist li a').text(bulletins[myindex].title.toString());
+                    $('#newstickerlist li a').attr('href','/bulletins/'+bulletins[myindex].id.toString());
+                }
+                else {
+                    myindex = 0;
+                    $('#newstickerlist li a').text(bulletins[myindex].title.toString());
+                    $('#newstickerlist li a').attr('href','/bulletins/'+bulletins[myindex].id.toString());
+                }
+            }
+        });
+
+
+        $("#newsticker-button--prev").on('click', function () {
+            if (bulletins.length > 0) {
+                myindex--;
+                if (myindex >= 0) {
+                    $('#newstickerlist li a').text(bulletins[myindex].title.toString());
+                    $('#newstickerlist li a').attr('href','/bulletins/'+bulletins[myindex].id.toString());
+                }
+                else {
+                    myindex = bulletins.length - 1;
+                    $('#newstickerlist li a').text(bulletins[myindex].title.toString());
+                    $('#newstickerlist li a').attr('href','/bulletins/'+bulletins[myindex].id.toString());
+
+                }
+            }
+        })
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
+    <script th:src="@{/public/admin/assets/js/lightgallery-all.min.js}"></script>
+</div>
+</html>

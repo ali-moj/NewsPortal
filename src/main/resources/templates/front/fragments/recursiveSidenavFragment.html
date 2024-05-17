@@ -1,0 +1,15 @@
+<th:block th:fragment="recursiveSidenav" xmlns:th="http://www.thymeleaf.org">
+    <li th:each="menuItem : ${menuItems}">
+        <a th:href="@{|/page/${menuItem.id}|}" class="sidenav__menu-url" th:text="${menuItem.title}"></a>
+        <th:block th:if="${menuItem.children.size() &gt; 0}">
+            <button class="sidenav__menu-toggle" aria-haspopup="true" aria-label="Open dropdown"><i class="ui-arrow-down"></i></button>
+        </th:block>
+        <ul class="sidenav__menu-dropdown" th:if="${menuItem.children.size() &gt; 0}">
+            <th:block th:insert="~{/front/fragments/recursiveSidenavFragment :: recursiveSidenav}"
+                      th:with="menuItems=${menuItem.children}">
+            </th:block>
+        </ul>
+    </li>
+</th:block>
+
+

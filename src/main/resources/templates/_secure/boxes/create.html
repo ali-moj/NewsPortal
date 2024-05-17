@@ -1,0 +1,214 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+
+
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/boxes/' ,parentName ='boxesManage' , ChildLink ='#' , ChildName = 'createBox')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+
+                <div class="panel panel-default b-a-0  shadow-box">
+
+
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white" th:text="#{createBox}"/>
+                    </div>
+                    <div class="panel-body jv-panel-body" >
+
+                        <div  class="row center-block site-preview " id="section-preview" >
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                <div class="col-sm-12 height-100 col-deactive" id="col-left-top"></div>
+                                <div class="col-sm-12 height-100 col-deactive" id="col-left-middle"></div>
+                                <div class="col-sm-12 height-100 col-deactive" id="col-left-bottom"></div>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 ">
+
+
+                                <div class="col-sm-12 height-100 col-deactive" id="col-right-top"></div>
+                                <div class="col-sm-12 height-100 col-deactive" id="col-right-middle"></div>
+                                <div class="col-sm-12 height-100 col-deactive" id="col-right-bottom"></div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row display-none" id="single-preview">
+                            <div  class="row center-block site-preview "   >
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                    <div class="col-sm-12 height-300 col-active"  ></div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <form id="box-form" class="form-horizontal" method="POST" th:object="${box}"
+                              th:action="@{/_secure/boxes}">
+                            <div th:include="~{fragments/createForm :: createForm}">createForm</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fullModal" th:insert="~{fragments/document-manager :: document-manager}"/>
+</div>
+
+
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" th:inline="javascript">
+
+        $('#boxType').on('change' , function () {
+            var box = $('#boxType').val();
+
+
+            if(box == 'SinglePage'){
+                $('#section-preview').addClass('display-none');
+                $('#single-preview').removeClass('display-none');
+            }else{
+                $('#section-preview').removeClass('display-none');
+                $('#single-preview').addClass('display-none');
+            }
+
+            if(box== 'Col6RightTop'){
+
+                console.log(box);
+                $('#section-preview')
+                    .find('.col-active')
+                    .removeClass('col-active')
+                    .addClass('col-deactive');
+
+                $('#col-right-top').removeClass('col-deactive');
+                $('#col-right-top').addClass('col-active');
+            }
+
+            if (box === 'Col6RightSlider') {
+
+                $('#section-preview')
+                    .find('.col-active')
+                    .removeClass('col-active')
+                    .addClass('col-deactive');
+
+                $('#col-right-top').removeClass('col-deactive');
+                $('#col-right-top').addClass('col-active');
+            }
+
+            if(box== 'Col6RightMiddle'){
+                console.log(box);
+                $('#section-preview')
+                    .find('.col-active')
+                    .removeClass('col-active')
+                    .addClass('col-deactive');
+
+                $('#col-right-middle').removeClass('col-deactive');
+                $('#col-right-middle').addClass('col-active');
+            }
+
+            if(box== 'Col6RightBottom'){
+                console.log(box);
+
+                $('#section-preview')
+                    .find('.col-active').removeClass('col-active')
+                    .addClass('col-deactive');
+
+                $('#col-right-bottom').removeClass('col-deactive');
+                $('#col-right-bottom').addClass('col-active');
+            }
+
+            if(box== 'Col3Left1Top'){
+                console.log(box);
+
+                $('#section-preview')
+                    .find('.col-active').removeClass('col-active')
+                    .addClass('col-deactive');
+
+                $('#col-left-top').removeClass('col-deactive');
+                $('#col-left-top').addClass('col-active');
+            }
+
+            if(box== 'Col3left1middle'){
+                console.log(box);
+
+                $('#section-preview')
+                    .find('.col-active').removeClass('col-active')
+                    .addClass('col-deactive');
+
+                $('#col-left-middle').removeClass('col-deactive');
+                $('#col-left-middle').addClass('col-active');
+            }
+
+            if(box== 'Col3left1bottom'){
+                console.log(box);
+
+                $('#section-preview')
+                    .find('.col-active').removeClass('col-active')
+                    .addClass('col-deactive');
+
+                $('#col-left-bottom').removeClass('col-deactive');
+                $('#col-left-bottom').addClass('col-active');
+            }
+
+        });
+
+        jQuery(document).ready(function () {
+
+            $('#opeen-file-manager').click(function () {
+                $('#document-manager').modal({backdrop: 'static', keyboard: false});
+            });
+
+            $('input[name="mainImage"]').click(function () {
+
+                $('#return-id').val("mainImage");
+                $('#document-manager').modal('show');
+            });
+
+            var data = [
+                {id: 'Col6RightTop', text: 'Col6RightTop'},
+                {id: 'Col6RightSlider', text: 'Col6RightSlider'},
+                {id: 'Col6RightMiddle', text: 'Col6RightMiddle'},
+                {id: 'Col6RightBottom', text: 'Col6RightBottom'},
+                {id: 'Col3Left1Top', text: 'Col3Left1Top'},
+                {id: 'Col3left1middle', text: 'Col3left1middle'},
+                {id: 'Col3left1bottom', text: 'Col3left1bottom'},
+                {id: 'SinglePage', text: 'SinglePage'}
+            ];
+
+            $("#boxType").select2({
+                width: '100%',
+                data: data
+            });
+        });
+
+
+
+        $('#box-form').validate({
+            rules: {
+                menu: {
+                    required: true
+                },
+                name: {
+                    required: true
+                },
+                priority: {
+                    required: true
+                },
+                boxType:{
+                    required: true
+                }
+            }
+        });
+
+    </script>
+</div>
+</body>
+</html>
+

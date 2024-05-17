@@ -1,0 +1,8 @@
+<ul data-th-fragment="folderFragment" xmlns:th="http://www.thymeleaf.org" th:if="${foldersTree.size() > 0}" >
+    <li class="tree-li" th:each="folder : ${foldersTree}" th:id="${'li'+ folder.id}">
+        <label th:for="${'folder-'+folder.id}"  th:attr="data-folder-id=${folder.id}" th:text="${folder.folderName}">Folder A</label>
+        <input class="treeLabel" type="checkbox" th:id="${'folder-'+folder.id}"/>
+        <th:block th:insert="~{/fragments/dirTreeFragment :: folderFragment}" th:with="foldersTree=${folder.subFolders}">
+        </th:block>
+
+</ul>

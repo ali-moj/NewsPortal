@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/admin-layout/admin-layout.html}">
+<head>
+    <meta charset="UTF-8" />
+
+</head>
+<body>
+<div class="container bg-container">
+    <section layout:fragment="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12" style="padding: 0 0 0 0 ">
+                    <img src=""  class="img-responsive"/>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div layout:fragment="javascript">
+    <script>
+        function fixEpochDate() {
+
+            var months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+            $(".date-full").each(function () {
+                var date = parseInt($(this).text()) / 1000;
+                $(this).text(moment.unix(date).format('jYYYY/jMM/jDD'));
+            });
+
+
+            $(".date-day").each(function () {
+                var date = parseInt($(this).text()) / 1000;
+                $(this).text(moment.unix(date).format('jD'));
+            });
+
+            $(".date-month-name").each(function () {
+
+                var date = parseInt($(this).text()) / 1000;
+                var monthIndex = parseInt(moment.unix(date).format('jDD'));
+                $(this).text(months[monthIndex-1]);
+
+            });
+
+            $(".date-month").each(function () {
+                var date = parseInt($(this).text()) / 1000;
+                $(this).text(moment.unix(date).format('jM'));
+            });
+
+            $(".date-year").each(function () {
+                var date = parseInt($(this).text()) / 1000;
+                $(this).text(moment.unix(date).format('jYYYY'));
+            });
+
+        }
+
+        jQuery(document).ready(function () {
+            fixEpochDate();
+        });
+    </script>
+</div>
+</body>
+</html>

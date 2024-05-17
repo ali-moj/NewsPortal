@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+</head>
+<body>
+<div table-container class="table table-round-container">
+<div data-th-fragment="showForm(entityName)">
+
+        <table dir="ltr" class="table table-round">
+
+            <tr class=" " th:each=" entry : ${wrapper.properties}" th:id="${#strings.toLowerCase(entry.key)}" >
+                <td   width="150">
+                    <label  th:text="#{${#strings.toLowerCase(entry.key)}}" style="font-size: 13px; font-weight: bold;max-width: 150px ">propLabel</label>:
+                </td>
+
+                <td  th:if="${entry.value=='string'}"  >
+                    <span  th:text="${__${entityName+'.'+entry.key}__}" >....</span>
+                </td>
+
+                <td  th:if="${entry.value=='richTextType'}"  >
+                    <span  th:utext="${__${entityName+'.'+entry.key}__}" >....</span>
+                </td>
+
+                <td  th:if="${entry.value=='bigDecimal'}"     >
+                    <span  th:text="${{__${entityName+'.'+entry.key}__}}" >....</span>
+                </td>
+                <td  th:if="${entry.value=='integer'}"   >
+                    <span  th:text="${__${entityName+'.'+entry.key}__}" >....</span>
+                </td>
+                <td   th:if="${entry.value=='long'}"   >
+                    <span  th:text="${{__${entityName+'.'+entry.key}__}}" >....</span>
+                </td>
+                <td  th:if="${entry.value=='boolean'}"     >
+                    <span  th:text="${__${entityName+'.'+entry.key}__}" >....</span>
+                </td>
+                <td   data-th-unless="${entry.value=='long' or entry.value=='string' or entry.value=='richTextType' or entry.value=='bigDecimal' or entry.value=='integer' or entry.value=='boolean'}"  >
+                    <span  th:text="${__${entityName+'.'+entry.key}__}" >....</span>
+                </td>
+            </tr>
+        </table>
+
+</div>
+</div>
+</body>
+</html>

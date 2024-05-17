@@ -1,0 +1,19 @@
+
+
+${AnsiColor.RED}        ███ ███  ███ ███████  █████  ███████ ███████
+${AnsiColor.RED}         ██ ██    ██ ██   ██ ██   ██ ██   ██ ██    █
+${AnsiColor.RED}         ██ ██    ██ ██   ██ ██   ██ ██   ██ ██
+${AnsiColor.RED}         ██ ██    ██ ███████ ███████ ██████  ███████
+${AnsiColor.RED}    ██   ██  ██  ██  ██      ██   ██ ██   ██      ██
+${AnsiColor.RED}     █   ██  ██  ██  ██      ██   ██ ██   ██ █    ██
+${AnsiColor.RED}     ██████   ████  ████    ███   ██ ███  ██ ███████
+
+${AnsiColor.RED}     ▀█▀ █▀▀█ █▀▀▄ █▀▀█  ▀ █▀▀█ █▀ █ █ █▀▀█ █▀▄▀█ █▀
+${AnsiColor.RED}      █  █▄▄█ █  █ █▀▀▄ ▀█ █▄▄▀ ▀█ █▀█ █▄▄█ █ ▀ █ ▀█
+${AnsiColor.RED}      ▀  ▀  ▀ ▀▀▀  ▀▀▀▀ ▀▀ ▀ ▀▀ ▀▀ ▀ ▀ ▀  ▀ ▀   ▀ ▀▀
+${AnsiColor.RED}     Project : http://localhost:8082/
+${AnsiColor.RED}     Panel : http://localhost:8082/_secure/login
+
+
+
+${AnsiColor.BLUE} :: Spring Boot${spring-boot.formatted-version} :: ${Ansi.DEFAULT}

@@ -1,0 +1,41 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+ <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+ <!--  BreadCrumb-->
+ <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/comments/' ,parentName ='commentManage' , ChildLink ='#' , ChildName = 'commentConfirm')}"
+      class="sub-navbar sub-navbar__header-breadcrumbs"/>
+
+ <!--Table Body-->
+ <div class="container">
+  <div class="row">
+   <div class="col-sm-12 ">
+
+    <!--Table Title-->
+    <div class="panel-heading   bg-primary-i b-b-0 text-center text-center">
+     <span class="text-white " th:text="#{commentConfirm}"/>
+    </div>
+
+    <!--Content Body-->
+    <div class="panel-body jv-panel-body  ">
+       <a th:href="@{|/_secure/comments/delete/${comment.id}|}" onclick="return  ConfirmDelete();"  class="btn btn-danger active  pull-right" th:text="#{del}">
+            sil
+        </a>
+        <a  th:href="@{|/_secure/comments/confirm-form/${comment.id}|}" onclick="return  Confirmcomment();"  class="btn btn-primary active  pull-right" th:text="#{create}">
+            create
+        </a>
+     <div th:include="~{fragments/showForm:: showForm(entityName='comment')}"/>
+    </div>
+
+   </div>
+  </div>
+ </div>
+</div>
+
+
+</div>
+</body>
+</html>

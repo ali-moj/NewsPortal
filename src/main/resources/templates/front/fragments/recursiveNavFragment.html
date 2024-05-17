@@ -1,0 +1,16 @@
+<th:block th:fragment="recursiveNav" xmlns:th="http://www.thymeleaf.org" class="nav__dropdown">
+    <li th:each="menuItem : ${menuItems}"
+        th:classappend="${menuItem.children.size() &gt; 0 } ? 'nav__dropdown' : '' ">
+        <a th:href="@{|/page/${menuItem.id}/${T(com.jvpars.utils.SeoUtils).urlFriendly(menuItem.title)}|}"
+           th:text="${menuItem.title}">
+
+        </a>
+
+        <ul th:class="nav__dropdown-menu" th:if="${menuItem.children.size() &gt; 0}">
+            <th:block th:insert="~{/front/fragments/recursiveNavFragment :: recursiveNav}"
+                      th:with="menuItems=${menuItem.children}">
+            </th:block>
+        </ul>
+
+    </li>
+</th:block>

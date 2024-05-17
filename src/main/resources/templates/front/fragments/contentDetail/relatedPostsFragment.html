@@ -1,0 +1,32 @@
+<th:block th:fragment="relatedPosts" xmlns:th="http://www.thymeleaf.org">
+
+    <section class="section related-posts mt-40"  >
+
+        <div class="title-wrap--line3  ">
+            <h3 class="section-title2" th:text="#{relatedPosts}"></h3>
+        </div>
+
+
+
+        <!-- Slider -->
+        <div id="owl-posts-3-items" class="owl-carousel owl-theme owl-carousel--arrows-outside">
+
+            <article class="entry thumb  " th:each="content : ${relatedContents}">
+                <div class="entry__img-holder thumb__img-holder"
+                     th:style="'background-image:url(' + ${content.mainImage} + ');'">
+                    <div class="bottom-gradient"></div>
+                    <div class="thumb-text-holder">
+                        <h2 class="thumb-entry-title">
+                            <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}" th:text="${content.title}"></a>
+                        </h2>
+                    </div>
+
+                </div>
+            </article>
+
+        </div>
+        <!-- end slider -->
+
+    </section>
+
+</th:block>

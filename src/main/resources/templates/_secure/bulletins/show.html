@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/bulletins/' ,parentName ='manageBulletin' , ChildLink ='#' , ChildName = 'noticeShow')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default b-a-0  shadow-box">
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white" th:text="#{noticeShow}"/>
+                    </div>
+                    <div class="panel-body">
+                        <a th:href="@{|/_secure/bulletins/edit-form/${bulletin.id}|}"
+                           class="btn btn-warning active  pull-right" th:text="#{edit}">
+                            edit
+                        </a>
+                        <a th:href="@{|/_secure/bulletins/delete/${bulletin.id}|}" onclick="return  ConfirmDelete();"
+                           class="btn btn-danger active  pull-right" th:text="#{del}">
+                            sil
+                        </a>
+                        <a th:href="@{/_secure/bulletins/create-form}" class="btn btn-primary active  pull-right"
+                           th:text="#{create}">
+                            create
+                        </a>
+
+                        <div class="row">
+                            <div class="col-sm-12 text-center position-relative">
+                                <img class="panel-decor-image shadow" id="image-preview"
+                                     th:src="${bulletin.mainImage}"/>
+
+                            </div>
+                        </div>
+                        <br/>
+                        <div data-th-include="~{fragments/showForm:: showForm(entityName='bulletin')}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<th:block th:fragment="col3LeftOneBottom" xmlns:th="http://www.thymeleaf.org">
+    <aside class="widget widget_categories mr-0" th:each="box : ${boxes}">
+        <h4 class="widget-title storke-black-10" th:text="${box.title}"/>
+        <ul>
+            <li th:each="content : ${box.contents}">
+                <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}">
+                    <span th:text="${content.title}"/>
+                </a>
+            </li>
+        </ul>
+    </aside>
+</th:block>

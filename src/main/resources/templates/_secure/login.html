@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="robots" content="noindex, nofollow"/>
+    <meta charset="UTF-8"/>
+    <title data-th-text="${setting?.siteTitle}">.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="shortcut icon" data-th-href="${setting?.favIcon}"/>
+    <link data-th-remove="all" rel="icon" data-th-href="${setting?.favIcon}"/>
+    <link rel="stylesheet" data-th-href="@{/public/admin/assets/skarla/css/bootstrap.css}"/>
+    <link rel="stylesheet" data-th-href="@{/public/admin/assets/skarla/css/customAdmin.css}"/>
+</head>
+
+<body class="fontFa login">
+
+
+    <form class="login-form " th:action="@{/_secure/login}" method="post">
+<div class="row ">
+        <div class="col-sm-4 col-sm-offset-4 shadow loginInput"  style="padding: 15px">
+                   <img width="120px" height="120px" class="center-block img-responsive" data-th-src="${setting?.panelIconGray}"/>
+            <br/>
+
+            <div th:if="${param.error}" class="alert-error text-center center-block display-hide">
+                <button class="close" data-close="alert"></button>
+                <span dir="ltr" data-th-text="#{EnterUsernPass}"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="inner-addon  left-addon fontEn">
+                    <i class="fa fa-user fa-inner"></i>
+                    <input dir="ltr"   value="support@jvpars.com"
+                           class="jvForm-control" type="text"
+                           placeholder="Enter Email" name="username" required="required"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="  inner-addon  left-addon fontEn">
+                    <i class="fa fa-lock fa-inner"></i>
+                    <input class="jvForm-control "  value="^uc88&CRcM8?dR"
+                           type="password" autocomplete="off"
+                           placeholder="Enter Password" name="password" required="required"/>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="loginBtn center-block" th:text="#{login}"/>
+            </div>
+
+            <br/>
+
+            <div class="text-center">
+                2018 &copy; JVPARS SOFTWARE ENGINEERING
+            </div>
+            <br/>
+
+        </div>
+
+    </form>
+
+
+
+<script th:src="@{/public/admin/assets/js/generalMinify.js}"></script>
+<script data-th-src="@{/public/admin/assets/js/loginMInify.js}"></script>
+
+
+</body>
+</html>

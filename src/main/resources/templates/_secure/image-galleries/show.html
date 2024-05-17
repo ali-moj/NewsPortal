@@ -1,0 +1,259 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/image-galleries/' ,parentName ='imageGalleryManage' , ChildLink ='_secure/image-galleries/' , ChildName = 'imageGalleryShow')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default b-a-0  shadow-box">
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white" th:text="#{imageGalleryShow}"/>
+                    </div>
+
+
+                    <div class="panel-body jv-panel-body" th:attrappend="data-imagegalleryid=${imagegallery.id}" id="imageGall">
+
+                        <a th:href="@{|/_secure/image-galleries/delete-album/${imagegallery.id}|}" onclick="return  ConfirmDelete();"  class="btn btn-danger active  pull-right" th:text="#{del}">
+                            sil
+                        </a>
+
+                       <!-- News Main Decor image Start-->
+                        <div class="row">
+                            <div class="col-sm-12 text-center position-relative"   >
+                                <img class="panel-decor-image shadow" th:if="${#lists.size(docFiles) > 0}" th:src="${'/download/'+docFiles[0].docFolder.folderPath +'/decor.jpg'}">
+
+                                <span class="panel-decor-image-update cursor-pointer openSimpleUploadModal"
+                                      th:attrappend="data-url='/_secure/image-galleries/part-two',data-uid=${imagegallery.id}"
+                                      th:alt-title="#{update}" th:if="${#lists.size(docFiles) > 0}">
+                                        <span class="fa-stack fa-lg item-inline " >
+                                            <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                                            <i class="fa fa-cloud-upload fa-stack-1x text-pink"></i>
+                                        </span>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- News Main Decor image Stop-->
+                        <br/>
+
+                        <!-- News Main Title Start-->
+                        <div class="row">
+                            <div class="col-sm-12 ">
+                                <table class="table p-0-table text-center tr-bordered  table-round  ">
+                                    <thead class="jvHeader "  >
+                                        <tr>
+                                            <th>
+                                                <h4 th:text="#{title}" />
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>
+                                                <h3 th:text="${imagegallery.title}" id="title"  />
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!--Ok 2019 Gallery Top Icons Start-->
+                                <div class="top-gallery-icons">
+                                    <button class="btnRemove  fa-stack fa-lg item-inline" data-th-alt-title="#{save}" type="button" style="display: none"  data-th-attrappend="data-id=${imagegallery.id}" id="saveTitle">
+                                        <i class="fa fa-circle text-green fa-stack-2x"></i>
+                                        <i class="fa fa-floppy-o fa-stack-1x text-white"></i>
+                                    </button>
+
+                                    <button class="btnRemove  fa-stack fa-lg item-inline" data-th-alt-title="#{edit}" id="titleBtn" >
+                                        <i class="fa fa-circle text-orange fa-stack-2x"></i>
+                                        <i class="fa fa-pencil fa-stack-1x text-white"></i>
+                                    </button>
+                                </div>
+                                <!--Ok 2019 Gallery Top Icons Stop-->
+                            </div>
+                        </div>
+                        <!-- News Main Title Stop-->
+
+
+                        <!-- News Main Details Start-->
+                        <div class="row">
+                            <div class="col-sm-12 ">
+                                <table class="table p-0-table text-center tr-bordered  table-round">
+                                    <thead class="jvHeader">
+                                    <tr>
+                                        <th>
+                                            <h4 th:text="#{description}" />
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>
+                                            <h3 th:text="${imagegallery.description}" id="des" />
+                                        </th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <!--Ok 2019 Gallery Top Icons Start-->
+                                <div class="top-gallery-icons">
+                                    <button class="btnRemove  fa-stack fa-lg item-inline" data-th-alt-title="#{save}" type="button" style="display: none"  data-th-attrappend="data-id=${imagegallery.id}" id="saveDes">
+                                        <i class="fa fa-circle text-green fa-stack-2x"></i>
+                                        <i class="fa fa-floppy-o fa-stack-1x text-white"></i>
+                                    </button>
+
+                                    <button class="btnRemove  fa-stack fa-lg item-inline" data-th-alt-title="#{edit}" id="descriptionBtn" >
+                                        <i class="fa fa-circle text-orange fa-stack-2x"></i>
+                                        <i class="fa fa-pencil fa-stack-1x text-white"></i>
+                                    </button>
+                                </div>
+                                <!--Ok 2019 Gallery Top Icons Stop-->
+                            </div>
+                        </div>
+                        <!-- News Main Details Stop-->
+
+
+
+
+                        <!-- News add album Images Start-->
+                        <div class="row" id="part">
+                            <div class="col-sm-12 ">
+                                <table class="table p-0-table text-center tr-bordered   table-round">
+                                    <thead class="jvHeader">
+                                    <tr>
+                                        <th>
+                                            <h4 th:text="#{newsServiceGallery}" />
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+
+                                <!--Ok 2019 add album Start-->
+                                <div class="top-gallery-icons">
+                                    <button class="btnRemove  fa-stack fa-lg item-inline openSimpleUploadModal" data-th-alt-title="#{uploadNewImage}" type="button" th:attrappend="data-url='/_secure/image-galleries/part-three',data-uid=${imagegallery.id},data-refresh='ok'">
+                                        <i class="fa fa-circle text-pink fa-stack-2x"></i>
+                                        <i class="fa fa-cloud-upload fa-stack-1x text-white"></i>
+                                    </button>
+                                </div>
+                                <!--Ok 2019 add album Stop-->
+                            </div>
+                        </div>
+                        <!-- News add album Images Stop-->
+
+
+
+                        <div class="row" >
+
+
+
+                            <div class="col-sm-12 col-md-4" th:each="image : ${docFiles}" th:if="${!#strings.contains(image.fileName,'decor')}">
+                                 <img  class="panel-thumb-image"  th:src="${'/download/'+image.docFolder.folderPath +'/'+image.fileName}">
+                                <span class="panel-thumb-image-delete cursor-pointer" th:alt-title="#{del}">
+                                    <span class="fa-stack fa-lg item-inline delImg" data-th-attrappend="data-id=${image.id}">
+                                        <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                                        <i class="fa fa-times fa-stack-1x text-red"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" th:inline="javascript">
+        var context = /*[[@{/}]]*/'';
+
+        $(document).ready(function () {
+            $(".delImg").on('click', function (e, data) {
+                var x = confirm("آیا از حذف عکس اطمینان دارید؟");
+                var id=$(this).data("id");
+                console.log(id);
+                if (x) {
+                    $.post("/_secure/image-galleries/deleteImage/"+id,  function (data) {
+                        window.location.href="/_secure/image-galleries/"+$('#imageGall').data("imagegalleryid");
+                      });
+                }
+                else   return false;
+            });
+
+
+            $("body").on("click","#titleBtn",function () {
+                var el=$("#title");
+                var content = el.html();
+                el.html('<textarea dir="ltr" cols="5" class="form-control gallery-textarea" id="titleText">' + content + '</textarea>');
+                $('#saveTitle').show();
+            });
+
+            $("body").on("click","#descriptionBtn",function () {
+                var el=$("#des");
+                var content = el.html();
+                el.html('<textarea dir="ltr" cols="5" class="form-control gallery-textarea" id="desText">' + content + '</textarea>');
+                $('#saveDes').show();
+            });
+
+
+            $("body").on("click","#saveDes",function (e) {
+                e.preventDefault();
+                console.log("click"+ $("textarea#desText").val());
+                var id=$(this).data("id");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/_secure/image-galleries/update-text/"+id,
+                    data: JSON.stringify({
+                       description:$("textarea#desText").val(),
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data){
+                        console.log(data);
+                        $("#des").html(data.description);
+                        $('#saveDes').hide();
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+
+
+                $("body").on("click","#saveTitle",function (e) {
+                    e.preventDefault();
+                    console.log("click"+ $("textarea#titleText").val());
+                    var id=$(this).data("id");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/_secure/image-galleries/update-text/"+id,
+                        data: JSON.stringify({
+                            title:$("textarea#titleText").val()
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function(data){
+                            console.log(data);
+                            $("#title").html(data.title);
+                            $('#saveTitle').hide();
+                        },
+                        error: function(err) {
+                            console.log(err);
+                        }
+                    });
+
+            });
+
+            });
+        </script>
+</div>
+</html>

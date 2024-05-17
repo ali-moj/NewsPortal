@@ -1,0 +1,71 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+
+
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/video-galleries/' ,parentName ='videosManage' , ChildLink ='_secure/video-galleries/create-form' , ChildName = 'createVideo')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container  ">
+        <div class="row  text-center">
+            <div class="col-md-8 col-md-offset-2 col-sm-12">
+                <div class="panel panel-default b-a-0  shadow-box">
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white" th:text="#{videoGalleryNew}"/>
+                    </div>
+                        <div class="panel-body jv-panel-body" >
+                            <form id="video-form" class="form-horizontal" method="POST" th:object="${videoGallery}"
+                                  th:action="@{/_secure/video-galleries}">
+                                <div th:include="~{fragments/createForm :: createForm}">createForm</div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="fullModal" th:insert="~{fragments/document-manager :: document-manager}"/>
+    <th:block th:insert="~{fragments/datepickerFragment :: persianDatepicker}"/>
+</div>
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" data-th-inline="javascript">
+
+        $(document).ready(function () {
+
+            var ss = getCurrentDateString();
+            console.log(ss);
+            // selectedInput.val(ss);
+            $('#mainImageUrl').click(function () {
+
+                $('#return-id').val("mainImageUrl");
+                $('#document-manager').modal('show');
+            });
+        });
+
+        $('#createdDate').click(function () {
+            selectedInput = $('#createdDate');
+            $('#exampleModal').modal('show');
+        });
+
+        $("#video-form").validate({
+            rules: {
+                title: {
+                    required: true
+                },
+                mainImageUrl: {
+                    required: true
+                },
+                videoUrl: {
+                    required: true
+                }
+            }
+        });
+
+    </script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/admin-layout/admin-layout.html}">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/sysusers/' ,parentName ='sysuserManage' , ChildLink ='#' , ChildName = 'createSysuser')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container">
+
+
+
+        <div class="row">
+            <div class="col-sm-12 ">
+
+
+                <div class="panel panel-default b-a-0  shadow-box">
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white" th:text="#{CreateSystemUser}" />
+                    </div>
+                    <div class="panel-body jv-panel-body">
+                        <form class="form-horizontal" method="POST" data-th-object="${sysuser}" data-th-action="@{/_secure/sysusers}" id="form">
+
+                            <table cellpadding="10" class="table table-round tr-bordered ">
+                                <tr>
+                                    <td>
+                                        <label th:text="#{email}"/>
+                                    </td>
+                                    <td>
+                                        <input th:field="*{email}" type="text" class="form-control"
+                                               style="text-align: center" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label th:text="#{role}"/>
+                                    </td>
+                                    <td>
+                                        <select th:field="*{role}" class="form-control" th:value="${role}"
+                                                multiple="multiple" style="text-align: center"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label th:text="#{fullName}"/>
+                                    </td>
+                                    <td>
+                                        <input th:field="*{fullName}" type="text" class="form-control"
+                                               data-toggle="tooltip" style="text-align: center"/>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <label th:text="#{password}"/>
+                                    </td>
+                                    <td>
+                                        <input th:field="*{password}" type="password" class="form-control"
+                                               data-toggle="tooltip" style="text-align: center"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center " colspan="2">
+                                    <button class="btn btn-success"  type="submit" th:text="#{save}"/>
+                                    <button class="btn btn-warning" type="reset" th:text="#{label_reset}"/>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </div>
+</div>
+
+
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" data-th-inline="javascript">
+        jQuery(document).ready(function () {
+
+
+            $.getJSON('/_secure/menus/get-roles' , function (res) {
+                data = res;
+                $("#role").select2({
+                    width: '100%',
+                    data: res
+                });
+            });
+
+            $("#form").validate({
+                rules: {
+                    email: {
+                        required: true,
+                    },
+                    role: {
+                        required: true,
+                    },
+                    fullName: {
+                        required: true,
+                    },
+                    password: {
+                        required: true,
+                         minlength: 5
+                    },
+
+                }
+            });
+        });
+    </script>
+</div>
+
+
+</body>
+</html>
+
+

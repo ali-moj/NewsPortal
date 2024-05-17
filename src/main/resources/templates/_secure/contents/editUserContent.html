@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+
+
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/contents/user-contents' ,parentName ='contentManage' , ChildLink ='contents/create-form' , ChildName = 'createContent')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default b-a-0  shadow-box">
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white" th:text="#{createContent}"/>
+                    </div>
+                    <div class="panel-body jv-panel-body">
+                        <form id="form" class="form-horizontal" method="POST" th:object="${content}"
+                              th:action="@{/_secure/contents/user-update}">
+
+                            <input th:type="hidden" th:field="*{createdDateL}">
+                            <input th:type="hidden" th:field="*{deleted}">
+                            <input th:type="hidden" th:field="*{id}">
+                            <input th:type="hidden" th:field="*{version}">
+
+                            <!-- News Main Decor image Start-->
+                            <div class="row">
+                                <div class="col-sm-12 text-center position-relative">
+                                    <img class="panel-decor-image shadow" id="image-preview"
+                                         th:src="${content.mainImage}"/>
+
+                                    <span class="panel-decor-image-update cursor-pointer  "
+                                          th:alt-title="#{update}">
+                                        <span id="upload-image" class="fa-stack fa-lg item-inline ">
+                                            <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                                            <i class="fa fa-cloud-upload fa-stack-1x text-pink"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <br/>
+                            <!-- News Main Decor image Stop-->
+
+                            <table cellpadding="10" class="table table-round tr-bordered ">
+                                <tr>
+                                    <td>
+                                        <label th:text="#{box}"/>
+                                    </td>
+                                    <td>
+                                        <select th:field="*{box}" class="form-control"
+                                                style="text-align: center">
+                                            <option th:each="box : ${boxes}" th:value="${box.id}"
+                                                    th:text="${box.name}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label th:text="#{title}"/>
+                                    </td>
+                                    <td>
+                                        <input th:field="*{title}" type="text" class="form-control"
+                                               style="text-align: center"/>
+                                    </td>
+                                </tr>
+
+                                <tr style="display: none">
+                                    <td>
+                                        <label th:text="#{mainImage}"/>
+                                    </td>
+                                    <td>
+                                        <input th:field="*{mainImage}" type="text" class="form-control"
+                                               data-toggle="tooltip" style="text-align: center"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label th:text="#{pageSummery}"/>
+                                    </td>
+                                    <td>
+                                        <textarea th:field="*{pageSummery}" class="form-control"
+                                                  data-toggle="tooltip" rows="10"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label th:text="#{bodyText}"/>
+                                    </td>
+                                    <td>
+                                        <textarea th:field="*{bodyText}" class="form-control"
+                                                  data-toggle="tooltip"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label th:text="#{meta}"/>
+                                    </td>
+                                    <td>
+                                        <input th:field="*{meta}" type="text" class="form-control"
+                                               data-toggle="tooltip" style="text-align: center"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label th:text="#{createdDate}"/>
+                                    </td>
+                                    <td>
+                                        <input th:field="*{createdDate}" type="text" class="form-control"
+                                               data-toggle="tooltip" style="text-align: center"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center " colspan="2">
+                                        <button class="btn btn-success"  type="submit" th:text="#{save}"/>
+                                        <button class="btn btn-warning" type="reset" th:text="#{label_reset}"/>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="fullModal" th:insert="~{fragments/document-manager :: document-manager}"/>
+    <th:block th:insert="~{fragments/datepickerFragment :: persianDatepicker}"/>
+</div>
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" th:inline="javascript">
+        jQuery(document).ready(function () {
+
+
+            $('#pageSummery').removeClass('editor');
+            $('#opeen-file-manager').click(function () {
+                $('#document-manager').modal({backdrop: 'static', keyboard: false});
+            });
+
+            $('#mainImageRow').attr('class', 'display-none');
+
+            $('#upload-image').click(function () {
+                //console.log('call-back');
+                $('#return-id').val("mainImage");
+                $('#document-manager').modal('show');
+            });
+
+
+        });
+
+
+        $('#createdDate').click(function () {
+            console.log("created date");
+            selectedInput = $('#createdDate');
+            $('#exampleModal').modal('show');
+        });
+
+        $("#form").validate({
+            rules: {
+                title: {
+                    required: true
+                },
+                expirationDate: {
+                    required: true
+                },
+                createdDate: {
+                    required: true
+                }
+            }
+        });
+    </script>
+</div>
+
+</body>
+</html>

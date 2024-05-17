@@ -1,0 +1,155 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+
+<body>
+
+<section data-layout-fragment="content" data-th-object="${compliant}">
+    <div class="row  ">
+
+
+        <div class=" col-sm-12 text-center">
+
+            <!--  Top Icons  -->
+            <div class="pull-left fixTopIcons ">
+                <table class="jvIconTable ">
+
+                    <tr>
+                        <!--compleiant seen-->
+                        <td class="topIconPadding ">
+                            <form   data-th-action="@{|/_secure/compliants/seen|}" data-th-method="post">
+                                <input type="hidden" name="id" data-th-value="${compliant.id}"/>
+                                <button type="submit" data-th-title="#{btnSeen}" class="btnRemoveadd">
+                                    <i class="fa fa-check  fixCircleIcon4" aria-hidden="true"></i>
+
+                                </button>
+                            </form>
+                        </td>
+
+                        <!-- Article Delete-->
+                        <td class="topIconPadding">
+                            <form method="get" data-th-action="@{|/_secure/compliants/*{id}|(delete)}" data-th-method="delete">
+                                <input type="hidden" data-id-field="*{id}"/>
+                                <input type="hidden" data-id-field="*{version}"/>
+                                <button class="btn btnRemoveDelete" data-th-title="#{label_delete}" type="submit" >
+                                    <i class="fa fa-trash-o fixCircleIcon2"  aria-hidden="true"/>
+                                </button>
+                            </form>
+                        </td>
+
+                        <!--   Back-->
+                        <td class="topIconPadding">
+                            <button class="btnRemoveBack btn " data-th-title="#{backToComplaintslist}" type="submit" onclick="window.location.href='/_secure/compliants'">
+                                <i class="fa fa-arrow-left fixCircleIcon2"  aria-hidden="true"/>
+                            </button>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+            <!-- Top Buttons Stop--> <!-- Product Top Icons-->
+
+            <!-- Top Cheveron  -->
+            <table class="jvpTable chevronBack" >
+                <tr class="pull-right center-vertical">
+                    <td> <i data-th-title="#{complaints}" class="fa fa-gavel  chevronIcons"/></td>
+                    <td> <img class="chevronSpeperator2" data-th-src="@{/public/admin/assets/image/chevronMediumSeperator.png}"/></td>
+                    <td class="chevronLink" >
+                        <a data-th-title="#{complaintslist}" onclick="window.location.href='/_secure/compliants'">
+                            <b data-th-text="#{complaintslist}"/>
+                        </a>
+                    </td>
+                    <td> <img class="chevronSpeperator2" data-th-src="@{/public/admin/assets/image/chevronMediumSeperator.png}"/></td>
+                    <td class="chevronLink" >
+                        <b data-th-title="#{userComplaint}" data-th-text="#{userComplaint}"/>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="newPanelBack">
+                <fieldset>
+
+            <table class="table table-round tr-bordered table-hover " dir="ltr">
+                <tr class="newPropsBack">
+                    <td colspan="2">
+                        <span   data-th-text="#{jvpDetailCompliant}">...</span>
+                    </td>
+                </tr>
+
+            
+                <tr>
+                    <td data-th-text="#{label_compliant_createdDate}">
+                        description
+                    </td>
+                    <td class="backToShamsi" data-th-text="${compliant.createdDate}">
+                        createdDate
+                    </td>
+                </tr> 
+                
+                <tr>
+                <td data-th-text="#{label_compliant_mobile}">
+                    metaTag
+                </td>
+                <td data-th-text="${compliant.mobile}">
+                    mobile
+                </td>
+                </tr>
+
+                <tr>
+                    <td data-th-text="#{label_compliant_email}">
+                        email
+                    </td>
+                    <td data-th-text="${compliant.email}">
+                        email
+                    </td>
+                </tr>
+                <tr>
+
+                    <td data-th-text="#{label_compliant_invoiceNo}">
+                        invoiceNo
+                    </td>
+                    <td data-th-text="${compliant.invoiceNo}">
+                        invoiceNo
+                    </td>
+                </tr>
+
+
+               
+            </table>
+
+            <table class="table table-round tr-bordered table-hover " dir="ltr">
+                <tr class="newPropsBack">
+                <td data-th-text="#{label_compliant_note}">
+                    note
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    <textarea class="jvpNoteArea" style="min-height: 200px" disabled="disabled" data-th-text="${compliant.note}" />
+                </td>
+            </tr>
+            </table>
+
+
+
+
+
+
+                </fieldset>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" data-th-inline="javascript"> $(document).ready(function () {
+    });
+    </script>
+</div>
+</body>
+</html>

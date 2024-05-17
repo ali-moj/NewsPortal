@@ -1,0 +1,99 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}"
+                     xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+
+
+<div layout:fragment="content" class="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/contents/' ,parentName ='contentManage' , ChildLink ='contents/create-form' , ChildName = 'createContent')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default b-a-0  shadow-box">
+                    <div class="panel-heading  bg-primary-i b-b-0 text-center">
+                        <span class="text-white" th:text="#{createContent}"/>
+                    </div>
+                    <div class="panel-body jv-panel-body">
+                        <form id="form" class="form-horizontal" method="POST" th:object="${content}"
+                              th:action="@{/_secure/contents}">
+
+                            <!-- News Main Decor image Start-->
+                            <div class="row">
+                                <div class="col-sm-12 text-center position-relative">
+                                    <img class="panel-decor-image shadow" id="image-preview"
+                                         src="/public/admin/assets/img/none.jpg"/>
+
+                                    <span  class="panel-decor-image-update cursor-pointer  "
+                                          th:alt-title="#{update}">
+                                        <span id="upload-image" class="fa-stack fa-lg item-inline ">
+                                            <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                                            <i  class="fa fa-cloud-upload fa-stack-1x text-pink"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <br/>
+                            <!-- News Main Decor image Stop-->
+
+
+                            <div th:include="~{fragments/createForm :: createForm}">createForm</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="fullModal" th:insert="~{fragments/document-manager :: document-manager}"/>
+    <th:block th:insert="~{fragments/datepickerFragment :: persianDatepicker}"/>
+</div>
+<div data-layout-fragment="javascript">
+    <script type="text/javascript" th:inline="javascript">
+        jQuery(document).ready(function () {
+
+            $('#pageSummery').removeClass('editor');
+            $('#opeen-file-manager').click(function () {
+                $('#document-manager').modal({backdrop: 'static', keyboard: false});
+            });
+
+            $('#mainImageRow').attr('class', 'display-none');
+
+            $('#upload-image').click(function () {
+                //console.log('call-back');
+                $('#return-id').val("mainImage");
+                $('#document-manager').modal('show');
+            });
+
+
+        });
+
+
+        $('#createdDate').click(function () {
+            console.log("created date");
+            selectedInput = $('#createdDate');
+            $('#exampleModal').modal('show');
+        });
+
+        $("#form").validate({
+            rules: {
+                title: {
+                    required: true
+                },
+                expirationDate: {
+                    required: true
+                },
+                createdDate: {
+                    required: true
+                }
+            }
+        });
+    </script>
+</div>
+
+</body>
+</html>

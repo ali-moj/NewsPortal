@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/front/layouts/front-layout}"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="description" th:content="#{imageArchive}+ ' | ' + #{siteName}"/>
+    <title th:text="#{imageArchive}+ ' | ' + #{siteName}"></title>
+</head>
+<body class="style-videos">
+<div layout:fragment="content" class="content style-videos">
+    <br/>
+
+
+    <!-- Preloader -->
+    <div class="loader-mask">
+        <div class="loader">
+            <div></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="center-item">
+
+
+            <i class="fa fa-arrow-circle-o-left fa-3x text-white pb-4 px-3" id="pri-page"
+               th:alt-title="#{previousPage}"></i>
+
+            <p>
+                <span class="pagination-text" id="currentPage"></span>
+                <span class="pagination-text" th:text="#{slash}"></span>
+                <span class="pagination-text" id="pageCount"></span>
+            </p>
+
+            <i class="fa fa-arrow-circle-o-right fa-3x text-white pb-4 px-3" id="next-page"
+               th:alt-title="#{nextPage}"></i>
+
+        </div>
+        <!--Section middle Images Start-->
+        <div class="row" id="gallery">
+        </div>
+
+
+    </div>
+</div>
+
+</body>
+</html>
+
+<div data-layout-fragment="javascript">
+    <script>
+
+        $(".nav__holder").removeClass("nav__holder");
+        $(".nav--sticky").addClass("nav__holder-dark");
+
+        $(".newsticker__item a").removeClass("newsticker__item-url");
+        $(".newsticker__item a").addClass("newsticker__item-url-dark");
+
+        $(".trending-now").addClass("back-dark");
+        $(".trending-section").addClass("p-0");
+        $(".add-dark").addClass("dark-menu");
+
+        $(document).ready(function () {
+            goPage();
+            $('#pri-page').click(function () {
+                if (currentPage === 0)
+                    return;
+                currentPage--;
+                goPage();
+            });
+
+            $('#next-page').click(function () {
+                if (currentPage >= pageCount - 1)
+                    return;
+
+                currentPage++;
+                goPage();
+            });
+        });
+
+        var pageCount = 0;
+        var currentPage = 0;
+        var size = 2;
+
+
+        function goPage() {
+            var url = '/gallery-page-archive?page=' + currentPage + '&size=' + size;
+            $('#gallery').html('');
+            $.getJSON(url, function (data) {
+                pageCount = data.pageCount;
+                currentPage = data.currentPage;
+                data.items.forEach(function (element) {
+                    $('#gallery').append(itemToDiv(element));
+                });
+                setPagination(currentPage, pageCount);
+            });
+        }
+
+        function itemToDiv(gallery) {
+            var div = '<div class="col-lg-6 padding-2">';
+            div += '<article class="entry thumb thumb--size-4">';
+            div += '<div class="entry__img-holder thumb__img-holder-gallery" ';
+            div += 'style="background-image:url(/download-resize/ImageGallery/' + gallery.finglisTitle + '/decor.jpg?ratio=500);">';
+            div += '<div class="bottom-gradient"></div>';
+            div += '<div class="thumb-text-holder thumb-text-holder--3">';
+            div += '<a class="entry__meta-category entry__meta-category--label entry__meta-category--violet">' + gallery.userName + '</a>';
+            div += '<ul class="entry__meta">';
+            div += '<ul class="entry__meta">';
+            div += '<li class="entry__meta-date"></li>';
+            div += '</ul>';
+            div += '<span class="line-ellipsis-2">';
+            div += '<h2 class="thumb-entry-title">';
+            div += '<a href="/gallery/' + gallery.id + '">' + gallery.title + '</a>';
+            div += '</h2>';
+            div += '</span>';
+            div += '</ul>';
+            div += '</div>';
+            div += '<a href="/gallery/' + gallery.id + '" class="thumb-url"></a>';
+            div += '</div>';
+            div += '</article>';
+            div += '</div>';
+            return div;
+        }
+
+        function setPagination(current, count) {
+            $('#currentPage').text(current + 1);
+            $('#pageCount').text(count);
+            $('#next-page').removeClass('btn-disabled');
+            $('#next-page').addClass('btn-hover');
+            $('#pri-page').removeClass('btn-disabled');
+            $('#pri-page').addClass('btn-hover');
+            if (currentPage === 0) {
+                $('#next-page').removeClass('btn-disabled');
+                $('#next-page').addClass('btn-hover');
+                $('#pri-page').addClass('btn-disabled');
+                $('#pri-page').removeClass('btn-hover');
+            }
+            if (currentPage === (pageCount - 1)) {
+                $('#pri-page').removeClass('btn-disabled');
+                $('#pri-page').addClass('btn-hover');
+                $('#next-page').addClass('btn-disabled');
+                $('#next-page').removeClass('btn-hover');
+            }
+        }
+
+
+    </script>
+</div>
+
+
+

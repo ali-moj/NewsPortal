@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/front/layouts/front-layout}"
+        xmlns:sd="http://io.github.jpenren/sd"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="description" th:content="${box.name} + ' | ' +${box.menu.title} +  ' | ' + #{siteName}"/>
+    <title th:text="${box.name} + ' | ' +${box.menu.title} +  ' | ' + #{siteName}"></title>
+
+</head>
+<body>
+
+
+<div layout:fragment="content" class="content">
+
+    <section class="featured-posts-grid">
+
+        <div class="container  ">
+
+            <div class="row   minHeight  mt-108  ">
+
+                <!-- Side News -->
+                <div class="col-lg-4 pr-lg-2  hidden-md hidden-sm hidden-xs  ">
+                    <table class="table  article-table-round shadow left-table " width="100%">
+                        <tr class="jvpHeader content-bordered">
+                            <td dir="ltr">
+                                <i class="fa fa-line-chart text-green faContent"></i>
+                                <span class="navText text-left" th:text="#{jvpLatestNews}"/>
+
+                            </td>
+                        </tr>
+                        <tr class=" " th:each="content : ${contents}"
+                            th:if="${! #strings.isEmpty(content.publishDate)}">
+                            <td class=" " dir="ltr">
+                                <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}">
+
+                                    <table class="table borderless   ">
+                                        <tr>
+                                            <td>
+                                                <img class="article-side-circle-img  article-shadow"
+                                                     data-th-src="${content.mainImage}"/>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}">
+                                                <span th:alt-title="${content.title}"
+                                                      data-th-text="${content.title}"/>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </a>
+                            </td>
+                        </tr>
+
+                        <tr class="content-bordered  ">
+                            <td>
+                                <a th:href="@{/}">
+                                    <div class="col-sm-12 text-center">
+                                        <span th:text="#{news}"/>
+                                    </div>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- News Archive -->
+                <div class="col-lg-8 col-md-12 col-sm-12 col-12 jvpZero  ">
+                    <div class="ui-achive ">
+                        <div class="ui-outer">
+                            <!--    Archive For each Start-->
+                            <div class="ui-content clearfix mb-4  article-table-round shadow w-100"
+                                 th:each="row : ${page}">
+                                <!-- Details -->
+                                <div class="ui-details-en bg-green  archive-mobile-css">
+                                    <!-- Day -->
+                                    <h4 class="font-weight-400 storke-white-10 date-day" th:text="${row.createdDate}"/>
+                                    <!-- Month -->
+                                    <span class="font-size-26 storke-white-10 pb-4 pt-2 date-month-title"
+                                          th:text="${row.createdDate}"/>
+                                    <!-- Year -->
+                                    <!-- <span class="font-size-20 font-weight-200 storke-white-10 date-year" th:text="${row.createdDate}" />-->
+                                    <span class="font-weight-200 font-size-26 date-year" th:text="${row.createdDate}"/>
+                                    <!--Link-->
+                                    <span class="mt-4 mb-2">
+                                       <a th:href="@{|/contents/${row.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(row.title)}|}">
+                                        <span class="archive-continue-css " th:text="#{contiue}"/>
+                                    </a>
+                                </span>
+                                </div>
+                                <!-- Button -->
+
+                                <!-- Content -->
+                                <div class="ui-content ">
+                                    <!-- full createdDate -->
+                                    <i class="fa fa-clock-o text-green mr-1"></i>
+                                    <span class="fontFa pl-1 date-full" th:text="${row.createdDate}"></span>
+
+                                    <i class="fa fa-pencil text-green mr-1"></i>
+                                    <a th:href="@{|/user-contents/${row.sysUser.id}|}">
+                                        <span class="pl-1" th:text="${row.sysUser.fullName}"></span>
+                                    </a>
+
+                                    <!-- row title -->
+                                    <div class="col-sm-12 font-size-16 font-weight-600  storke-black-10 text-black  ">
+                                        <a th:href="@{|/contents/${row.id}|}">
+                                        </a>
+                                    </div>
+
+                                    <!-- content summery -->
+                                    <div class="newsArchiveContainer justify-left article-pad">
+                                        <p class="jvpArticleTitle font-size-24 storke-black"
+                                           data-th-text="${row.title}"/>
+                                        <div class="entry__excerpt font-size-16 newsContent-150-limit"
+                                             th:text="${row.pageSummery}"/>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <!--    Archive For each Stop-->
+
+                            <!-- Archive Image -->
+
+
+                        </div>
+                        <!-- Outer Ends -->
+
+
+                        <!--pagination start-->
+                        <div class="center-item">
+                            <div class="row">
+
+                                <div class="col-sm-12">
+                                    <nav class="pull-right">
+                                        <ul class="pagination" sd:pagination-split="7" sd:pagination="full">
+                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                            <li class="disabled"><a href="#" aria-label="Previous"><span
+                                                    aria-hidden="true">&laquo;</span></a>
+                                            </li>
+                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <!--pagination finish-->
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/front/layouts/front-layout}"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="description" th:content="${page.title}+ ' | ' + #{siteName}"/>
+    <title th:text="${page.title}+ ' | ' + #{siteName}"></title>
+</head>
+<body>
+
+
+<div layout:fragment="content" class="content">
+
+
+    <section th:unless="${StaticPage}" class="featured-posts-grid">
+
+        <div class="container">
+            <div class="row ">
+
+                <!--   left Start-->
+                <div class="col-lg-4 col-md-4   hidden-sm hidden-xs">
+                    <aside class="sidebar sidebar--right">
+
+                        <!--  Side Item One-->
+                        <th:block th:include="~{/front/fragments/pageSection/col3LeftOneTopFragment :: col3LeftOneTop}"
+                                  th:with="boxes=${col3Left1Top}"/>
+                        <!-- end widget popular posts -->
+
+                        <!--  Side Item Two-->
+                        <th:block
+                                th:include="~{/front/fragments/pageSection/col3LeftOneMiddleFragment :: col3LeftOneMiddle}"
+                                th:with="boxes=${col3left1middle}"/>
+                        <!-- end widget popular posts -->
+
+                        <!--  Side Item Three-->
+                        <th:block
+                                th:include="~{/front/fragments/pageSection/col3LeftOneBottomFragment :: col3LeftOneBottom}"
+                                th:with="boxes=${col3left1bottom}"/>
+                        <!-- end widget categories -->
+
+                    </aside> <!-- end sidebar -->
+                </div>
+                <!--   left end end-->
+
+                <!--   Right 6 Start-->
+                <div class="col-lg-8 col-md-8  col-sm-12 col-12 blog__content  ">
+
+                    <th:block
+                            th:include="~{/front/fragments/pageSection/colSixRightSliderFragment :: colSixRightSlider}"
+                            th:with="boxes=${sliders}"/>
+
+                    <!-- Top-1 Start -->
+                    <th:block th:include="~{/front/fragments/pageSection/colSixRightTopFragment :: colSixRightTop}"
+                              th:with="boxes=${col6RightTop}"/>
+                    <!-- Top-1 Start -->
+
+                    <th:block
+                            th:include="~{/front/fragments/pageSection/colSixRightMiddleFragment :: colSixRightMiddle}"
+                            th:with="boxes=${col6RightMiddle}"/>
+
+                    <th:block th:include="~{/front/fragments/pageSection/col6RightBottomFragment :: col6RightBottom}"
+                              th:with="boxes=${col6RightBottom}"/>
+
+                </div>
+                <!--   Right 6 end-->
+
+            </div>
+        </div>
+    </section>
+
+    <div th:if="${StaticPage}" class="row">
+        <div class="col-sm-12">
+            <div class="container" th:include="~{/front/fragments/pageSection/singlePageFragment :: singlePage}"
+                 th:with="content=${StaticPage}"/>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+

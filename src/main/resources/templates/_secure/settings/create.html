@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/settings/' ,parentName ='setting' , ChildLink ='#' , ChildName = 'editSetting')}"
+         class="sub-navbar sub-navbar__header-breadcrumbs"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center" >
+                <div class="panel panel-default b-a-0 shadow-box">
+
+                    <div class="panel-heading panel-heading bg-primary-i b-b-0">
+                        <span class="text-white" th:text="#{setting}"/>
+                    </div>
+
+                    <div class="panel-body jv-panel-body">
+
+                        <!-- Tab-Titles -->
+                        <div class="tabbable-line" dir="ltr">
+                            <ul class="nav nav-tabs">
+                                <!-- Tab-1 Title -->
+                                <li role="presentation" class="active">
+                                    <a data-toggle="tab" href="#contactsList" th:text="#{contactsList}"/>
+                                </li>
+
+                                <!-- Tab-2 Title -->
+                                <li role="presentation">
+                                    <a data-toggle="tab" href="#siteInfo" th:text="#{siteInfo}"/>
+                                </li>
+
+                                <!-- Tab-3 Title -->
+                                <li role="presentation">
+                                    <a data-toggle="tab" href="#datesList" th:text="#{datesList}"/>
+                                </li>
+
+                                <!-- Tab-4 Title -->
+                                <li role="presentation">
+                                    <a data-toggle="tab" href="#addLogos" th:text="#{logos}"/>
+                                </li>
+
+                                <!-- Tab-5 Title -->
+                                <li role="presentation">
+                                    <a data-toggle="tab" href="#rules" th:text="#{rule}"/>
+                                </li>
+
+                                <!-- Tab-6 Title -->
+                                <li role="presentation">
+                                    <a data-toggle="tab" href="#aboutUs" th:text="#{about}"/>
+                                </li>
+                            </ul>
+
+
+                            <div class="tab-content ">
+
+                                <!-- Tab-1 Lable - Add Contacts List -->
+                                <div id="contactsList" class="tab-pane fade in active ">
+                                    <form class="form-horizontal routing-form" method="POST" th:object="${setting}"
+                                          th:action="@{/_secure/settings/contacts-list}">
+                                        <div class="text-center"></div>
+                                        <table class="table table-round tr-bordered table-hover">
+
+                                            <tr class="jvHeader">
+                                                <td colspan="2">
+                                                    <span class="jvHeaderText" data-th-title="#{addContactsList}"
+                                                          th:text="#{addContactsList}"/>
+                                                    <div class="btn-group pull-left" role="group" aria-label="">
+                                                        <button type="submit" class=" btnRemoveSave circleSave "
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                data-original-title="ذخیره">
+                                                            <i class="fa fa-floppy-o fix-fa"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td th:text="#{googleLink}"/>
+                                                <td>
+                                                    <input dir="ltr" class="form-control" type="text"
+                                                           th:field="*{googleLink}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td th:text="#{companyAddress1}"/>
+                                                <td>
+                                                    <input class="form-control fontEn" type="text"
+                                                           th:field="*{companyAddress1}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td th:text="#{companyAddress2}"/>
+                                                <td>
+                                                    <input dir="ltr" class="form-control" type="text"
+                                                           th:field="*{companyAddress2}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td th:text="#{companyTel}"/>
+                                                <td>
+                                                    <input class="form-control" type="text" th:field="*{companyTel}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td th:text="#{companyFax}"/>
+                                                <td>
+                                                    <input class="form-control fontEn" type="text"
+                                                           th:field="*{companyFax}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td th:text="#{companyEmail}"/>
+                                                <td>
+                                                    <input dir="ltr" class="form-control fontEn" type="email"
+                                                           th:field="*{companyEmail}"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td th:text="#{instagramLink}"/>
+                                                <td>
+                                                    <input dir="ltr" class="form-control fontEn" type="text"
+                                                           th:field="*{instagramLink}"/>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </form>
+                                </div>
+
+                                <!-- Tab-2 Content - Add Site Info-->
+                                <div id="siteInfo" class="tab-pane fade in">
+                                    <form class="form-horizontal routing-form" method="POST" th:object="${setting}"
+                                          th:action="@{/_secure/settings/site-info}">
+                                        <div class="text-center"></div>
+                                        <table class="table table-round tr-bordered" dir="ltr">
+
+                                            <tr class="jvHeader">
+                                                <td colspan="2">
+                                                    <span class="jvHeaderText" data-th-title="#{addContactsList}"
+                                                          th:text="#{addSiteInfo}"/>
+                                                    <div class="btn-group pull-left" role="group" aria-label="">
+                                                        <button type="submit" class=" btnRemoveSave circleSave "
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                data-original-title="ذخیره">
+                                                            <i class="fa fa-floppy-o fix-fa"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td th:text="#{siteTitle}">..</td>
+                                                <td>
+                                                    <input dir="ltr" class="form-control " type="text"
+                                                           th:field="*{siteTitle}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td th:text="#{mainPageUrl}"/>
+                                                <td>
+                                                    <input dir="ltr" class="form-control " type="text"
+                                                           th:field="*{mainPageUrl}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td th:text="#{siteAdress}">..</td>
+                                                <td>
+                                                    <input dir="ltr" class="form-control " type="text"
+                                                           th:field="*{siteAdress}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td th:text="#{copyRight}">..</td>
+                                                <td>
+                                                    <input dir="ltr" class="form-control " type="text"
+                                                           th:field="*{copyRight}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+
+                                <!-- Tab-3 Content - Add Support Dates-->
+                                <div id="datesList" class="tab-pane fade in">
+                                    <form class="form-horizontal routing-form" method="POST" th:object="${setting}"
+                                          th:action="@{/_secure/settings/dates-list}">
+                                        <div class="text-center "></div>
+                                        <table class="table table-round tr-bordered table-hover " dir="ltr">
+
+                                            <tr class="jvHeader">
+                                                <td colspan="2">
+                                                    <span class="jvHeaderText" data-th-title="#{addContactsList}"
+                                                          th:text="#{datesList}"/>
+                                                    <div class="btn-group pull-left" role="group" aria-label="">
+                                                        <button type="submit" class=" btnRemoveSave circleSave "
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                data-original-title="ذخیره">
+                                                            <i class="fa fa-floppy-o fix-fa"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{label_startDateDomain}">..</label>
+                                                </td>
+                                                <td>
+                                                    <input dir="ltr" class="form-control fontEn"
+                                                           data-date-format="dd.mm.yyyy"
+                                                           data-date-viewmode="years" id="startDateDomain"
+                                                           name="startDateDomain"
+                                                           th:value="*{startDateDomain}" type="text"
+                                                           data-toggle="tooltip"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{label_endDateDomain}">..</label>
+                                                </td>
+                                                <td>
+                                                    <input dir="ltr" class="form-control fontEn" id="endDateDomain"
+                                                           th:field="*{endDateDomain}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{label_startDateServer}">..</label>
+                                                </td>
+
+                                                <td>
+                                                    <input dir="ltr" class="form-control fontEn"
+                                                           th:field="*{startDateServer}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{label_endDateServer}">..</label>
+                                                </td>
+
+                                                <td>
+                                                    <input dir="ltr" class="form-control fontEn"
+                                                           th:field="*{endDateServer}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{label_startDateSupport}">..</label>
+                                                </td>
+
+                                                <td>
+                                                    <input dir="ltr" class="form-control fontEn"
+                                                           th:field="*{startDateSupport}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{label_endDateSupport}">..</label>
+                                                </td>
+
+                                                <td>
+                                                    <input dir="ltr" class="form-control" th:field="*{endDateSupport}"/>
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+
+                                <!-- Tab-4 Content - Add Logos-->
+                                <div id="addLogos" class="tab-pane fade in">
+                                    <form class="form-horizontal routing-form" method="POST" th:object="${setting}"
+                                          th:action="@{/_secure/settings/logos}">
+                                        <div class="text-center "></div>
+                                        <table class="table table-round tr-bordered table-hover " dir="ltr">
+
+
+                                            <tr class="jvHeader">
+                                                <td colspan="3">
+                                                    <span class="jvHeaderText" data-th-title="#{addContactsList}"
+                                                          th:text="#{addLogo}"/>
+                                                    <div class="btn-group pull-left" role="group" aria-label="">
+                                                        <button type="submit" class=" btnRemoveSave circleSave "
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                data-original-title="ذخیره">
+                                                            <i class="fa fa-floppy-o fix-fa"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{logo_sitelogo}">..</label>
+                                                </td>
+                                                <td class="previewBack">
+                                                    <img width="50px" height="auto"
+                                                         class="center-block img-responsive settingImageZoom"
+                                                         data-th-src="${setting?.logo}"/>
+                                                </td>
+                                                <td>
+                            <textarea id="logo" th:field="*{logo}"
+                                      class="form-control"
+                                      data-th-placeholder="#{inBitFormat}"
+                                      data-toggle="tooltip">
+                            </textarea>
+
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{logo_whitelogo}">..</label>
+                                                </td>
+                                                <td class="previewBack">
+                                                    <img width="50px" height="auto"
+                                                         class="center-block img-responsive settingImageZoom "
+                                                         data-th-src="${setting?.whiteLogo}"/>
+                                                </td>
+                                                <td>
+                            <textarea id="whiteLogo" th:field="*{whiteLogo}"
+                                      class="form-control maxLenght"
+                                      data-th-placeholder="#{inBitFormat}"
+                                      data-toggle="tooltip">
+                            </textarea>
+
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{logo_favLogo}">..</label>
+                                                </td>
+                                                <td class="previewBack">
+                                                    <img width="50px" height="auto"
+                                                         class="center-block img-responsive settingImageZoom "
+                                                         data-th-src="${setting?.favIcon}"/>
+                                                </td>
+                                                <td>
+                            <textarea id="favIcon" th:field="*{favIcon}"
+                                      class="form-control maxLenght"
+                                      data-th-placeholder="#{inBitFormat}"
+                                      data-toggle="tooltip">
+                            </textarea>
+
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{logo_panelWhiteLogo}">..</label>
+                                                </td>
+                                                <td class="previewBack">
+                                                    <img width="50px" height="auto"
+                                                         class="center-block img-responsive settingImageZoom "
+                                                         data-th-src="${setting?.panelIconWhite}"/>
+                                                </td>
+                                                <td>
+                            <textarea id="panelIconWhite" th:field="*{panelIconWhite}"
+                                      class="form-control maxLenght "
+                                      data-th-placeholder="#{inBitFormat}"
+                                      data-toggle="tooltip">
+                            </textarea>
+
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{panelMiddleLogo}">..</label>
+                                                </td>
+                                                <td class="previewBack">
+                                                    <img width="50px" height="auto"
+                                                         class="center-block img-responsive settingImageZoom "
+                                                         data-th-src="${setting?.adminFaIcon}"/>
+                                                </td>
+                                                <td>
+                            <textarea id="panelMiddleLogo" th:field="*{adminFaIcon}"
+                                      class="form-control maxLenght "
+                                      data-th-placeholder="#{inBitFormat}"
+                                      data-toggle="tooltip">
+                            </textarea>
+
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <label th:text="#{logo_panelGrayLogo}">..</label>
+                                                </td>
+                                                <td class="previewBack">
+                                                    <img width="50px" height="auto"
+                                                         class="center-block img-responsive settingImageZoom "
+                                                         data-th-src="${setting?.panelIconGray}"/>
+                                                </td>
+                                                <td>
+                            <textarea id="panelIconGray" th:field="*{panelIconGray}"
+                                      class="form-control maxLenght "
+                                      data-th-placeholder="#{inBitFormat}"
+                                      data-toggle="tooltip">
+                            </textarea>
+
+                                                </td>
+                                            </tr>
+
+                                            <tr class="jvPanelFooter">
+                                                <td colspan="3"><a target="_blank"
+                                                                   href="https://www.base64-image.de/"><span dir="ltr"
+                                                                                                             th:text="#{base64}"></span></a>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </form>
+                                </div>
+
+                                <!-- Tab-5 Content - Add Rules-->
+                                <div id="rules" class="tab-pane  fade in">
+                                    <form class="form-horizontal routing-form" method="POST" th:object="${setting}"
+                                          th:action="@{/_secure/settings/rules}">
+                                        <div class="text-center "></div>
+                                        <table class="table table-round tr-bordered table-hover" dir="ltr">
+                                            <tr>
+                                                <td dir="ltr">
+                          <textarea id="rule" name="rule" data-th-field="*{rule}" dir="ltr"
+                                    type="text" class="form-control maxLenght editor"
+                                    data-toggle="tooltip" style="min-height: 400px"> </textarea>
+                                                    <span id="chars_left"></span>
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+
+                                <!-- Tab-6 Content - Add About Us-->
+                                <div id="aboutUs" class="tab-pane fade in">
+                                    <form class="form-horizontal routing-form" method="POST" th:object="${setting}"
+                                          th:action="@{/_secure/settings/about-us}">
+                                        <div class="text-center"></div>
+                                        <table class="table table-round tr-bordered table-hover " dir="ltr">
+
+                                            <tr class="jvHeader">
+                                                <td colspan="2">
+                                                    <span class="jvHeaderText" data-th-title="#{addContactsList}"
+                                                          th:text="#{about}"/>
+                                                    <div class="btn-group pull-left" role="group" aria-label="">
+                                                        <button type="submit" class=" btnRemoveSave circleSave "
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                data-original-title="ذخیره">
+                                                            <i class="fa fa-floppy-o fix-fa"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>
+
+                          <textarea id="about" data-th-field="*{about}" dir="ltr"
+                                    type="text" class="form-control maxLenght editor"
+                                    data-toggle="tooltip" style="min-height: 400px"> </textarea>
+                                                    <span id="chars_left2"></span>
+
+
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="text-center " colspan="2">
+                                                    <button class="btn btn-success"  type="submit" th:text="#{save}"/>
+                                                    <button class="btn btn-warning" type="reset" th:text="#{label_reset}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <th:block th:insert="~{fragments/datepickerFragment :: persianDatepicker}"/>
+</div>
+
+
+</body>
+<div data-layout-fragment="javascript">
+
+
+    <script type="text/javascript" data-th-inline="javascript">
+        /*<![CDATA[*/
+        $('body').routing();
+
+        $('#startDateDomain').click(function () {
+            selectedInput = $('#startDateDomain');
+            $('#exampleModal').modal('show');
+        });
+
+        $('#endDateDomain').click(function () {
+            selectedInput = $('#endDateDomain');
+            $('#exampleModal').modal('show');
+        });
+
+        $('#startDateServer').click(function () {
+            selectedInput = $('#startDateServer');
+            $('#exampleModal').modal('show');
+        });
+
+        $('#endDateServer').click(function () {
+            selectedInput = $('#endDateServer');
+            $('#exampleModal').modal('show');
+        });
+
+        $('#startDateSupport').click(function () {
+            selectedInput = $('#startDateSupport');
+            $('#exampleModal').modal('show');
+        });
+
+        $('#endDateSupport').click(function () {
+            selectedInput = $('#endDateSupport');
+            $('#exampleModal').modal('show');
+        });
+
+        /*]]>*/
+    </script>
+</div>
+
+</html>

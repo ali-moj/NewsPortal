@@ -1,0 +1,98 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+					 layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8" data-th-remove="all"/>
+</head>
+<body>
+
+
+<div layout:fragment="content" class="content">
+	<div th:include="~{/fragments/BreadCrumb :: BreadCrumb(parentLink='_secure/comments/' ,parentName ='commentManage' , ChildLink ='#' , ChildName = 'commentList')}"
+		 class="sub-navbar sub-navbar__header-breadcrumbs"/>
+	<div class="container">
+		<div class="row">
+
+
+
+			<div class="col-lg-12 ">
+
+
+				<div class="panel panel-default b-a-0  shadow-box">
+
+					<div class="panel-heading  bg-primary-i b-b-0 text-center text-center">
+						<span class="text-white " th:text="#{commentList}"/>
+
+					</div>
+					<div class="panel-body jv-panel-body">
+
+						<table id="dt" class=" table text-center tr-bordered table-hover table-round " >
+							<thead class="jvHeader" style="text-align: center" >
+							<tr class="jvHeader">
+								<th><b th:text="#{contentTitle}" /></th>
+								<th><b th:text="#{senderName}"  /></th>
+								<th><b th:text="#{date}"  /></th>
+								<th><b th:text="#{confirm}"  /></th>
+								<th width="20">#</th>
+							</tr>
+							</thead>
+
+							<tbody>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div data-layout-fragment="javascript">
+	<script type="text/javascript" th:inline="javascript">
+        var context = /*[[@{/}]]*/'';
+        $(document).ready(function () {
+            $.fn.dataTable.ext.errMode = 'none';
+            var dt = $('#dt').DataTable({
+                "bAutoWidth": false,
+                'ajax': {'url': context + "_secure/comments"},
+                'columns': [
+                    {'data': 'content.title'},
+                    {'data' : 'senderName' },
+                    {'data' : 'createdDate' },
+					{
+                        'data': 'confirmed',
+                        'orderable': false,
+                        'searchable': true,
+                        'render': function (data, type, full, meta) {
+                            if (data){
+                                return '<label class="check-container">' +
+									' &nbsp;<input type="checkbox" checked="checked"  disabled="disabled" />' +
+									'<span class="checkmark"></span>' +
+									'</label>';
+                            }
+							else{
+                                return '<label class="check-container">' +
+                                    ' &nbsp;<input type="checkbox"  disabled="disabled" />' +
+                                    '<span class="checkmark"></span>' +
+                                    '</label>';
+							}
+
+                        }
+					},
+                    {
+                        'data': 'id',
+                        'orderable': false,
+                        'searchable': false,
+                        'render': function (data, type, full, meta) {
+                            if (data)
+                                return '<a href="'+data+'"><i class="fa fa-external-link fa-flip-horizontal"> </i> </a>'
+                        }
+                    }
+                ]
+            });
+        });
+	</script>
+</div>
+
+</body>
+</html>

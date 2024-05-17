@@ -1,0 +1,42 @@
+<th:block th:fragment="col6RightBottom" xmlns:th="http://www.thymeleaf.org">
+
+    <section class="section mr-0" th:each="box : ${boxes}">
+
+        <div class="title-wrap title-wrap--line">
+            <h3 class="section-title storke-black-10" th:text="${box.title}"/>
+            <a href="#" class="all-posts-url">arşiv</a>
+        </div>
+        <article class="entry card post-list" th:each="content : ${box.contents}">
+            <div class="entry__img-holder post-list__img-holder card__img-holder heigh-300"
+                 th:style="'background:url(' + ${content.mainImage} + ');'">
+                <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}"
+                   class="thumb-url"></a>
+                <img th:src="@{|${#strings.replace(content.mainImage,'download','download-resize')+ '?ratio=300'} |}"
+                     alt="" class="entry__img d-none"/>
+            </div>
+
+            <div class="entry__body post-list__body card__body">
+                <a th:href="@{|/contents/${content.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(content.title)}|}">
+                    <div class="entry__header">
+                        <h2 class="entry__title newsContent-80-limit" th:text="${content.title}"/>
+                        <ul class="entry__meta">
+                            <li dir="ltr" class="entry__meta-author">
+                                <span dir="ltr" th:text="#{author}"/>
+                                <a th:href="@{|/user-contents/${content.userId}|}">
+                                    <span dir="ltr" th:text="${content.author}"/>
+                                </a>
+                                <span class="entry__meta-date6" th:text="${content.publishDate}"/>
+
+                                <div class="entry__excerpt font-size-16 newsContent-120-limit"
+                                     th:text="${content.summery}"/>
+                            </li>
+                        </ul>
+                    </div>
+
+                </a>
+            </div>
+        </article>
+    </section>
+
+
+</th:block>

@@ -1,0 +1,73 @@
+<!DOCTYPE html><html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{/admin-layout/admin-layout.html}" xmlns:th="http://www.thymeleaf.org">
+ <head> 
+  <meta charset="UTF-8" data-th-remove="all" />
+
+
+ </head>
+ <body>
+  <div class="container bg-container">
+   <section data-layout-fragment="content" data-th-object="${sysuserslog}" data-sec-authorize="hasAuthority('Role-User') or hasAuthority('Role-Admin') or hasAuthority('Role-SuperAdmin')">
+
+      <h3 class="page-title" data-th-text="#{label_sysuserslog_plural}"></h3>
+      <div class="page-bar">
+       <ul class="page-breadcrumb">
+        <li>
+         <a data-th-text="#{label_home}" data-th-href="@{/_secure/}"></a>
+         <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+         <a data-th-text="#{label_sysuserslog_plural}" data-th-href="@{/_secure/sysuserslog}" ></a>
+         <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+         <span data-th-text="#{label_show}"></span>
+        </li>
+       </ul>
+
+       <div class="page-toolbar">
+        <div class="btn-group pull-right">
+         <a type="button" class="btn btn-fit-height btn-warning" data-th-href="@{/_secure/sysuserslog}"  data-th-text="#{label_back}"></a>
+        </div>
+       </div>
+
+      </div>
+
+      <div class="portlet light bordered">
+       <div class="portlet-title">
+        <div class="caption">
+         <i class="fa fa-search font-red-sunglo"></i>
+         <span class="caption-subject font-red-sunglo bold " data-th-text="#{label_sysuserslog_info}"></span>
+        </div>
+
+        <div class="actions" data-sec-authorize="hasAuthority('Role-Admin') or hasAuthority('Role-SuperAdmin')">
+         <div class="btn-group">
+          <a class="btn btn-sm btn-default dropdown-toggle" href="javascript:" data-toggle="dropdown" aria-expanded="false"> Araçlar
+           <i class="fa fa-angle-down"></i>
+          </a>
+          <ul class="dropdown-menu pull-left">
+           <li >
+            <a style="text-align: left" data-th-onclick="'location.href=\'' + @{|~/_secure/sysuserslogs/edit-form/${sysuserslog.id}|} + '\''"  type="button" class="btn btn-link" > <i class="fa fa-edit"></i> Düzenle</a>
+           </li>
+           <li>
+            <form class="form-horizontal" action="#" data-th-action="@{|~/_secure/sysuserslogs/${sysuserslog.id}|(delete)}"  data-th-method="delete">
+             <input type="hidden" data-id-field="${sysuserslog.id}"/>
+             <input type="hidden" data-id-field="${sysuserslog.id}"/>
+             <button type="submit" class="btn btn-link " onclick="return  confirmDelete();"><i class="fa fa-trash-o"></i> Sil</button>
+            </form>
+           </li>
+          </ul>
+         </div>
+        </div>
+       </div>
+       <div class="portlet-body form ">
+        <div data-th-include="~{fragments/showForm :: showForm}" >show</div>
+       </div>
+      </div>
+   </section>
+
+  </div> 
+
+
+ </body> 
+</html>

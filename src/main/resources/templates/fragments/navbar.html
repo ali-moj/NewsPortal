@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+
+
+</head>
+<body>
+<div data-th-fragment="navbar">
+
+    <div class="container-fluid">
+
+        <div class="navbar-header" dir="ltr">
+
+            <div class="pull-right">
+                <button class="navbar-toggle collapsed" type="button"
+                        th:onclick="'location.href=\'' + @{/_secure/logout} + '\''">
+                    <i class="fa fa-fw  text-white fa-sign-out  "></i>
+                </button>
+                <button class="action-sidebar-open navbar-toggle collapsed" type="button">
+                    <i class="fa fa-fw fa-bars text-white"></i>
+                </button>
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <div class="collapse navbar-collapse" id="navbar">
+
+
+
+            <ul class="nav navbar-nav  pull-right">
+
+                <li  ><a th:href="@{/_secure/logout}"><span th:text="#{SignOut}"/><i
+                        class="m-l-1 fa-lg fa fa-fw fa-sign-out m-r-1"></i></a></li>
+            </ul>
+
+            <ul class="nav nav-justified">
+                <li>
+                    <a data-th-href="@{/_secure/}">
+                        <img class="  topLogo     " th:src="${setting?.adminFaIcon}"/>
+                    </a>
+                </li>
+            </ul>
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+<div data-layout-fragment="javascript">
+
+</div>
+
+</html>

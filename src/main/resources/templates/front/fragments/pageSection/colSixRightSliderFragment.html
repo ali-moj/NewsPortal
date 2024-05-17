@@ -1,0 +1,30 @@
+<th:block th:fragment="colSixRightSlider" xmlns:th="http://www.thymeleaf.org">
+
+
+    <div id="owl-headlines" class="owl-carousel owl-theme owl-carousel--arrows-outside top-slider shadow" th:each="box : ${boxes}">
+
+        <div th:each="item : ${box.contents}">
+
+            <span class="content-continue-pic-title" th:alt-title="${item.title}" data-th-text="${item.title}"/>
+                <a th:href="@{|/contents/${item.createdDateL}/${T(com.jvpars.utils.SeoUtils).urlFriendly(item.title)}|}">
+                    <img class="top-article-picture" th:src="${item.mainImage}">
+                </a>
+                <a th:href="@{|/box-archive/${box.id}|}" class="  all-posts-url-white">Arşiv</a>
+
+
+                <span class=" col-6-slider-writer">
+                    <i class="fa fa-rss article-continue-top-fa"></i>
+                    <span dir="rtl" data-th-text="#{creator}"/>
+                    <span th:text="${item.author}"></span>
+                </span>
+            </span>
+        </div>
+
+    </div>
+
+    <div class="col-sm-12 P-0">
+
+    </div>
+
+
+</th:block>

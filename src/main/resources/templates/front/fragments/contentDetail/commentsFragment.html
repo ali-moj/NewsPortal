@@ -1,0 +1,33 @@
+<th:block th:fragment="comments" xmlns:th="http://www.thymeleaf.org">
+
+    <!-- Comments -->
+    <div class="entry-comments">
+
+        <div class="title-wrap--line3  ">
+            <h3 class="section-title2">Yorumlar</h3>
+        </div>
+
+        <ul class="comment-list">
+
+            <li th:each="comment : ${comments}">
+                <div class="comment-body" >
+                    <div class="comment-avatar">
+                        <img data-th-src="@{/public/admin/assets/front/img/user.png}" height="80" width="80"/>
+
+
+                    </div>
+                    <div class="comment-text ">
+                        <h6 class="comment-author" th:text="${comment.senderName}"/>
+                        <div class="comment-metadata">
+                            <a href="#" class="comment-date" th:text="${comment.createdDate}"/>
+                        </div>
+                        <p th:text="${comment.commentText}"/>
+
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- end comments -->
+
+</th:block>

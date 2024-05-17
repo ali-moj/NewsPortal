@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <style>
+        span {
+            font-size: 13px;;
+        }
+    </style>
+</head>
+<body>
+
+<aside data-th-fragment="sidebar">
+    <div>
+        <a th:href="@{/_secure/}">
+            <img class="center-block img-responsive sidePanel-logo" data-th-src="${setting?.panelIconGray}"/>
+        </a>
+    </div>
+
+    <div class="sidebar-default-visible">
+        <hr/>
+    </div>
+
+    <div class="sidebar-content ">
+
+
+        <!-- START Tree -->
+        <ul class="side-menu  ">
+
+            <li class="Dashboards" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                <a th:href="@{/_secure/dashboard}">
+                    <i class="icons icon-compass sidebar-icons"></i>
+
+
+                    <span class="nav-label ">
+                       
+                        <span class="navText" th:text="#{dashboard}"/>
+
+                    </span>
+                </a>
+            </li>
+
+            <!--Side Sys Users-->
+            <li class="Dashboards" sec:authorize="hasAnyRole('ROLE_ADMIN') or hasAnyRole('ROLE_SUPER_ADMIN') ">
+                <a href="#">
+                    <i class="icons icon-user  sidebar-icons"></i>
+
+
+                    <span class="nav-label ">
+                       
+                        <span class="navText" th:text="#{sysusers}"/>
+                    </span>
+                </a>
+                <ul>
+                    <li>
+                        <a th:href="@{/_secure/sysusers}">
+                            <i class="icon icon-list sidebar-icons-smal"></i>
+                            <span class="  sidebar-icons-text" th:text="#{SystemUserList}"></span>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/_secure/sysusers/create-form}">
+                            <i class="icon icon-plus sidebar-icons-smal"></i>
+                            <span class="sidebar-icons-text" th:text="#{jvpAddSysUser}"/>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!--Side Menu-->
+            <li class="Dashboards" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                <a th:href="@{/_secure/menus}">
+                    <i class="icons icon-layers sidebar-icons"></i>
+
+
+                    <span class="nav-label ">
+                        
+                        <span class="navText" th:text="#{manageMenu}"/>
+                    </span>
+                </a>
+            </li>
+
+
+            <li class="Dashboards" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="#">
+                    <i class="icons icon-grid sidebar-icons"></i>
+                    <span class="nav-label ">
+                          
+                        <span class="navText" th:text="#{boxes}"/>
+
+                    </span>
+                </a>
+                <ul>
+                    <li>
+                        <a th:href="@{/_secure/boxes/}">
+                            <i class="icon icon-list sidebar-icons-smal"></i>
+                            <span class="  sidebar-icons-text" th:text="#{BoxList}"></span>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/_secure/boxes/create-form}">
+                            <i class="icon icon-plus sidebar-icons-smal"></i>
+                            <span class="sidebar-icons-text" th:text="#{boxAdd}"/>
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="Dashboards" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="#">
+                    <i class="icons icon-note sidebar-icons"></i>
+                    <span class="nav-label ">
+                                           
+                        <span class="navText" th:text="#{noticeList}"/>
+
+                    </span>
+                </a>
+                <ul>
+                    <li>
+                        <a th:href="@{/_secure/bulletins/}">
+                            <i class="icon icon-list sidebar-icons-smal"></i>
+                            <span class="  sidebar-icons-text" th:text="#{noticeList}"></span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/_secure/bulletins/create-form}">
+                            <i class="icon icon-plus sidebar-icons-smal"></i>
+                            <span class="sidebar-icons-text" th:text="#{sendNotice}"/>
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!--Side Confirmation-->
+            <li class="Dashboards" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="#">
+                    <i class="icons icon-earphones-alt sidebar-icons"></i>
+
+
+                    <span class="nav-label ">
+                                        
+                        <span class="navText" th:text="#{Confirmation}"/>
+
+                    </span>
+                </a>
+                <ul>
+                    <li>
+                        <a th:href="@{/_secure/comments/}">
+                            <i class="icon icon-list sidebar-icons-smal"></i>
+                            <span class="  sidebar-icons-text" th:text="#{Comments}"></span>
+                        </a>
+                    </li>
+
+                    <li>
+
+                        <a th:href="@{/_secure/compliants/}">
+                            <i class="icon icon-list sidebar-icons-smal"></i>
+                            <span class="sidebar-icons-text" th:text="#{complaints}"/>
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!--contents-->
+            <li class="Dashboards" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="#">
+                    <i class="icons icon-note sidebar-icons"></i>
+
+
+                    <span class="nav-label ">
+                         
+                        <span class="navText" th:text="#{content}"/>
+
+                    </span>
+                </a>
+                <ul>
+                    <li>
+                        <a th:href="@{/_secure/contents}">
+                            <i class="icon icon-list sidebar-icons-smal"></i>
+                            <span class="  sidebar-icons-text" th:text="#{contentList}"></span>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/_secure/contents/unpublished-list}">
+                            <i class="icon icon-list sidebar-icons-smal"></i>
+                            <span class="  sidebar-icons-text" th:text="#{unpublishedtList}"></span>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/_secure/contents/create-form}">
+                            <i class="icon icon-plus sidebar-icons-smal"></i>
+                            <span class="sidebar-icons-text" th:text="#{addContent}"/>
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!--user contents-->
+            <li class="Dashboards" sec:authorize="!hasRole('ROLE_SUPER_ADMIN') and !hasRole('ROLE_ADMIN') ">
+                <a href="#">
+                    <i class="icons icon-note sidebar-icons"></i>
+
+
+                    <span class="nav-label ">
+                                 
+                        <span class="navText" th:text="#{content}"/>
+
+                    </span>
+                </a>
+                <ul>
+                    <li>
+                        <a th:href="@{/_secure/contents/user-contents}">
+                            <i class="icon icon-list sidebar-icons-smal"></i>
+                            <span class="  sidebar-icons-text" th:text="#{contentList}"></span>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/_secure/contents/user-create-form}">
+                            <i class="icon icon-plus sidebar-icons-smal"></i>
+                            <span class="sidebar-icons-text" th:text="#{addContent}"/>
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="Dashboards" sec:authorize="!hasRole('ROLE_SUPER_ADMIN')">
+                <a th:href="@{/_secure/image-galleries}">
+                    <i class="icons icon-picture  sidebar-icons"></i>
+
+                    <span class="nav-label ">
+                        
+                        <span class="navText" th:text="#{imageGallery}"/>
+                    </span>
+                </a>
+
+            </li>
+
+            <li class="Dashboards" sec:authorize="!hasRole('ROLE_SUPER_ADMIN')">
+                <a th:href="@{/_secure/video-galleries}">
+                    <i class="icons icon-film   sidebar-icons"></i>
+
+                    <span class="nav-label ">
+                                     
+                        <span class="navText" th:text="#{videoGallery}"/>
+
+                    </span>
+                </a>
+
+            </li>
+            <!--Side Setting-->
+
+            <li class="Dashboards" sec:authorize="hasRole('ROLE_SUPER_ADMIN')">
+                <a th:href="@{/_secure/settings}">
+                    <i class="icons icon-settings  sidebar-icons"></i>
+
+                    <span class="nav-label ">
+                                 
+                        <span class="navText" th:text="#{setting}"/>
+
+                    </span>
+                </a>
+
+            </li>
+
+            <li class="Dashboards">
+                <a th:href="@{/_secure/logout}">
+                    <i class="icons icon-close  sidebar-icons"></i>
+
+                    <span class="nav-label ">
+                              
+                        <span class="navText" th:text="#{label_exit}"/>
+
+                    </span>
+                </a>
+
+            </li>
+        </ul>
+        <!-- END Tree  -->
+
+        <div class="sidebar-default-visible">
+            <hr/>
+        </div>
+
+    </div>
+
+</aside>
+
+
+</body>
+
+<script>
+
+</script>
+
+</html>
